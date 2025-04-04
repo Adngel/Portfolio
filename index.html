@@ -1,0 +1,175 @@
+<html>
+	<head>
+		<title>A. David's coursework journal</title>
+		<link rel="stylesheet" type="text/css" href="IndexesScripts/Style.css"> <!-- My code for the web style-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> <!--The icons library-->
+		
+	</head>
+
+	<body>
+		<!-- 
+		<canvas id="myCanvas" width="1024" height="768" onMouseDown="handleMouseDown(event)" onmousemove="handleMouseMove(event)" onMouseup="handleMouseUp(event)" onmouseout="handleMouseOut(event)" >
+		<script src="IndexesScripts/ScriptIndex.js"></script>
+		</canvas>
+		-->
+		
+		<h1>www.AntonioLopezWorks.net</h1>
+		
+		
+		<div class="row">
+			<div class="leftcolumn">
+				<!-- News -->
+							
+				<div class="NewsW"> 
+					<div class="NewsUnit">
+						<div class="NewsText" style = "text-align: left;  padding: 8px 12px; position: absolute; top: 0">1 / 3</div>
+						<img src="MainAssets/p1.jpg" style="width:100%">
+						<div class="NewsText">Currently Working on: Project: Hippocrates</div>
+					 </div>
+					 <div class="NewsUnit">
+						<div class="NewsText" style = "text-align: left;  padding: 8px 12px; position: absolute; top: 0">2 / 3</div>
+						<img src="MainAssets/p2.jpg" style="width:100%">
+						<div class="NewsText">Game Design: Azuhlia</div>
+					 </div>
+					<div class="NewsUnit">
+						<div class="NewsText" style = "text-align: left;  padding: 8px 12px; position: absolute; top: 0">3 / 3</div>
+						<img src="MainAssets/p3.jpg" style="width:100%">
+						<div class="NewsText">C++ for Games: Title Pending</div>
+					</div>
+				</div>
+								
+				<div style= "position: relative">
+				<a class="SideBtPrev" onclick="NextPic(-1)"><i class="material-icons" style="font-size:1.6em;color:white">arrow_back</i></a>
+				<a class="SideBtNext" onclick="NextPic(1)"><i class="material-icons" style="font-size:1.6em;color:white">arrow_forward</i></a>
+				</div>
+				
+				<div style="text-align:center">
+					<span class="BtC" onclick="ChoosePic(1)"></span> 
+					<span class="BtC" onclick="ChoosePic(2)"></span> 
+					<span class="BtC" onclick="ChoosePic(3)"></span> 
+				</div>
+
+				<br>
+				<br>
+				<br>
+
+				<!-- Navigation menu -->
+				<div class="tab">
+					<button class="tablinks" onclick="OpenYear(event, 'Uni')">University</button>
+					<button class="tablinks" onclick="OpenYear(event, 'Jam')">Game Jams</button>
+					<button class="tablinks" onclick="OpenYear(event, 'IT')">Works</button>
+					<button class="tablinks" onclick="OpenYear(event, 'Hobby')">Hobby</button>
+					<button class="tablinks" onclick="OpenYear(event, 'WIP')">W.I.P.</button>
+				</div>
+
+				<div id="Uni" class="tabcontent">
+					<div>
+						<div class="tabcontentlink" style= "float: left">
+						<a href="GDIndex.html">Azhulia</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="Lost.html">The Apogee Races</a>
+						</div>
+					</div>
+					<div>
+						<div class="tabcontentlink"style= "float: left" >
+						<a href="Lost.html">Kurgaab and the curse of the prophet</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="Lost.html">The Last Champion</a>
+						</div>
+					</div>
+					<div>
+						<div class="tabcontentlink"style= "float: left" >
+						<a href="Lost.html">The End of the world</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="Lost.html">Torche Controller</a>
+						</div>
+					</div>
+					<div>
+						<div class="tabcontentlink"style= "float: left" >
+						<a href="Lost.html">A.I. Explorer A.I.</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="Lost.html">Console Multiclient Chat</a>
+						</div>
+					</div>
+				</div>
+
+				<div id="Jam" class="tabcontent">
+					<div>
+						<div class="tabcontentlink" style= "float: left">
+							<a href="CGamesindex.html" color="red">Brains Eden 2018</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="Lost.html">Brains Eden 2019</a>
+						</div>
+					</div>
+				</div>
+
+				<div id="IT" class="tabcontent">
+					<div>
+						<div class="tabcontentlink" style= "float: left">
+						<a href="GDIndex.html">Dental Nurse Curse</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<!--<a href="Lost.html">Prototype Development</a>-->
+						</div>
+					</div>
+				</div>
+				<div id="Hobby" class="tabcontent">
+					<div>
+						<div class="tabcontentlink" style= "float: left">
+						<a href="GDIndex.html">Modeling</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="GD/Project.html">Animations</a>
+						</div>
+					</div>
+					<div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="CGames/Project.html">Tomb Raider Level Editor</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<!--<a href="Lost.html">Kurgaab and the curse of the Prophet</a>-->
+						</div>
+					</div>
+				</div>
+				<div id="WIP" class="tabcontent">
+					<div>
+						<div class="tabcontentlink" style= "float: left">
+						<a href="GDIndex.html">Project: Hippocrates</a>
+						</div>
+						<div class="tabcontentlink"style= "float: left">
+						<a href="GD/Project.html">Steering A.I. Artefact</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="rightcolumn">
+				<!--Contact -->
+				<div class= "ContactW">
+					<h2>Details</h2>
+					<p>
+						<i class="material-icons" style="font-size:1.6em;color:navy">content_paste</i> <a href="Lost.html">Antonio David Lopez Corpas</a> <br>
+						<i class="material-icons" style="font-size:1.6em;color:navy">business</i> <a href="http://www.londonmet.ac.uk/contact-us/">London Metropolitan University</a> <br>
+						<i class="material-icons" style="font-size:1.6em;color:navy">videogame_asset</i> <a href="http://www.londonmet.ac.uk/courses/undergraduate/computer-games-programming---bsc-hons/">Computer Games Programming</a> <br>
+						<i class="material-icons" style="font-size:1.6em;color:navy">email</i> <a href="adl0164@my.londonmet.ac.uk">AntonioDLopez1987@hotmail.com</a> <br>
+					</p>
+				</div>
+			</div>
+		</div><!-- End of Row -->
+		
+		<div class="row">
+
+		</div><!-- End of Row -->
+		
+		
+		
+		<script src="IndexesScripts/ScriptIndex.js"></script> <!-- Script managing buttons and pics swaps -->
+	</body>
+
+	
+</html>

@@ -1,0 +1,336 @@
+
+body 
+{
+	background: linear-gradient(135deg ,rgb(240, 240, 255), rgb(230, 230, 245),rgb(128, 128, 150));
+	
+	font-size: 100%;
+	font-weight: normal;
+	font-family: DayRoman, "Times New Roman", Times, serif;
+	
+}
+
+
+@font-face {
+    font-family: DayRoman;
+    src: url(DAYROM__.ttf), url(DAYROM_X.ttf);
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+}
+
+@font-face 
+{
+ 	font-family: Stencil;
+	src: url(stencil.ttf);
+}
+
+h1 
+{
+	/*background-color: rgb(200,200,230);*/
+	background: linear-gradient(135deg ,rgb(200, 200, 255), rgb(230, 230, 255),rgb(160, 160, 210));
+	
+    width: 50%;
+    max-width: 600px;
+	
+	padding: 10px; /*This is the distance between the inner objects and the borders that contain them*/
+	border-radius: 25px;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+
+	color: white;
+	text-align: center;
+	font-size: 2.5em;
+	text-shadow: 1px 1px 2px black, 0 0 25px navy, 0 0 5px darkblue;
+}
+
+h2 
+{
+	color: black;
+	text-align: left;
+    font-size: 1.5em;
+	font-family: Stencil, "Times New Roman", Times, serif;
+}
+
+.leftcolumn
+{
+    float: left;
+    width: 70%;
+}
+
+.rightcolumn
+{
+    float: left;
+    width: 30%;
+}
+
+@media (max-width: 800px) 
+{
+    .leftcolumn, .rightcolumn 
+	{   
+        width: 100%;
+        padding: 0;
+    }
+}
+
+.row:after 
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+.ContactW 
+{
+	background: linear-gradient(135deg ,rgb(230, 245, 230), rgb(240, 255, 240),rgb(175, 215,175));
+	
+	width: 80%;
+	margin: auto;
+	padding: 30px;
+	border-radius: 25px 0px 25px 0px;
+	
+	
+	color: navy;
+    text-align: left;
+	/*text-indent: 50px;  /* Sangría en inglés */
+	line-height: 0.9;
+	/*text-shadow: 0.5px 0.5px red;*/
+	word-wrap: break-word;
+	word-break: keep-all;
+	font-size: 1.15em;
+	overflow: auto;
+	
+}
+
+.ContactW a:link, .ContactW a:visited
+{
+	color: navy;
+	text-decoration: none; /*To remove the underline in the links.*/
+}
+
+.ContactW a:hover , .ContactW a:active
+{
+	color: blue;
+	text-decoration: none; /*To remove the underline in the links.*/
+}
+
+.RequestsW 
+{
+	background: linear-gradient(rgba(230, 245, 230,255), rgba(0, 255, 240,0));
+	
+	width: 80%;
+	margin: auto;
+	padding: 30px;
+	border-radius: 25px 0px 25px 0px;
+	height: 300px;
+	
+	color: navy;
+    text-align: left;
+	/*text-indent: 50px;  /* Sangría en inglés */
+	line-height: 0.9;
+	/*text-shadow: 0.5px 0.5px red;*/
+	word-wrap: break-word;
+	word-break: keep-all;
+	font-size: 1.15em;
+	overflow: auto;
+	
+}
+
+
+/*News Style*/
+.NewsW 
+{
+	position: relative;
+	overflow: hidden;
+}
+
+.NewsText 
+{
+	color: white;
+	font-size: 1.15em;
+	padding: 8px 12px;
+	
+	position: absolute;
+	bottom: 4px;
+	width: 100%;
+}
+
+.SideBtNext
+{
+	background: linear-gradient(135deg ,rgb(96, 96, 112), rgb(128, 128, 150),rgb(96, 96, 112));
+	cursor: pointer;
+	padding: 16px;
+	border-radius: 50px 0 0 50px;
+	position: absolute;
+	right: 0px;
+	top: -250px;
+}
+
+.SideBtPrev
+{
+	background: linear-gradient(135deg ,rgb(96, 96, 112), rgb(128, 128, 150),rgb(96, 96, 112));
+	cursor: pointer;
+	padding: 16px;
+	border-radius: 0 50px 50px 0;
+	position: absolute;
+	top: -250px;
+}
+
+.BtC 
+{
+  cursor:pointer;
+  height: 2em;
+  width: 2em;
+  margin: 0 2px;
+  background: linear-gradient(135deg ,rgb(96, 96, 112), rgb(128, 128, 150),rgb(96, 96, 112));
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+  
+.BtCOn
+{
+  background: linear-gradient(135deg ,rgb(128, 150, 150), rgb(150, 200, 175),rgb(128, 150, 150));
+}
+
+
+.tab 
+{
+	overflow: hidden;
+	background: linear-gradient(135deg ,rgb(0, 150, 150), rgb(150, 200, 175),rgb(128, 150, 150));
+
+}
+
+/* Style the buttons inside the tab */
+.tab button 
+{
+	background-color: inherit;
+	float: left;
+	padding: 16px 16px;
+	width: 15%;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	transition: 0.3s;
+
+	
+	color: black;
+	text-align: left;
+    font-size: 1.5em;
+	font-family: Stencil, "Times New Roman", Times, serif;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover 
+{
+	background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active 
+{
+	background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent 
+{
+	background: linear-gradient(rgba(200, 210, 230,255), rgba(180, 180, 210,16));
+	display: none;
+	overflow: auto;
+}
+
+.tabcontentlink
+{
+	width: 50%;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+	font-size: 1.25em;
+	text-decoration: none;
+}
+
+.JournalList
+{
+	margin-left: 30%;
+	
+	color: navy;
+
+    text-align: left;	
+	line-height: 1.25;
+	word-wrap: break-word;
+	word-break: keep-all;
+	font-size: 1.15em;
+	overflow: auto;
+}
+
+#mycanvas
+{
+  margin: auto;
+  display: block;
+}
+
+.DescriptionText
+{
+	padding: 2em;
+	margin-left: 10%;
+	
+	font-family: DayRoman, "Times New Roman", Times, serif;
+	color: navy;
+	text-indent: 50px;
+    text-align: left;	
+	line-height: 0.9;
+	word-wrap: break-word;
+	word-break: keep-all;
+	font-size: 1.15em;
+	overflow: auto;
+}
+
+.sidenav 
+{
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #2E426D;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidenav a 
+{
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #f1f1f1;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav a:hover 
+{
+	color: #f1f1f1;
+	text-shadow: 0 0 3px #FFFFFF, 0 0 5px #FFFFFF;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
