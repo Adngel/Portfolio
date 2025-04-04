@@ -1,0 +1,838 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 5</div>
+			<img src="../../Resources/Prog_img/03_Java_Azhulia/03_0.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 5</div>
+			<img src="../../Resources/Prog_img/03_Java_Azhulia/03_1.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 5</div>
+			<img src="../../Resources/Prog_img/03_Java_Azhulia/03_3.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 5</div>
+			<img src="../../Resources/Prog_img/03_Java_Azhulia/03_4.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 5</div>
+			<img src="../../Resources/Prog_img/03_Java_Azhulia/03_2.jpg" style="width:100%">
+		</div>
+
+		<!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/03_Java_Azhulia/03_0.png" style="width:100%" onclick="currentSlideG(1)" alt="1/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/03_Java_Azhulia/03_1.jpg" style="width:100%" onclick="currentSlideG(2)" alt="2/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/03_Java_Azhulia/03_3.jpg" style="width:100%" onclick="currentSlideG(3)" alt="3/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/03_Java_Azhulia/03_4.jpg" style="width:100%" onclick="currentSlideG(4)" alt="4/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/03_Java_Azhulia/03_2.jpg" style="width:100%" onclick="currentSlideG(6)" alt="5/5">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>Azhulia</h1>
+        <p class="DescriptionText">&nbsp; &nbsp;The Azhulia prototype, is a 2d game developed to learn javascrip, the programming language of the Web, so this project runs in a browser. It presents a small area where the player must collect some engine pieces to fix his spaceship.
+        </br></br>
+		&nbsp; &nbsp;Most of the develpment time was spent in create a working application able to render the game properly with the javascript graphic tools. Even so, this project showed some extra challenges:&nbsp;
+		</p>
+		<ul class="DescriptionList">
+          <li>A programming approach oriented in objects, was possible, but&nbsp; sometimes the <strong>loading times</strong> of some codes  finished before than others, generating errors, it was required lot of tests to can get an stable build. </li>
+          <li>The <strong>character size</strong> was bigger than the tiles, so a right drawing order for the tiles and models had to be considered.</li>
+          <li>Although the textures in the tile map was a simple structure, filling it with the right texture was being too time consuming, what resulted in the creation of a rudimentary <strong>level editor</strong> to can texturize the world in runtime, with the use of the mouse, and the ability to save the map to can import later in the proper game.</li>
+			<li>Other obstacle was the <strong>browser cache</strong>, areas like the music had to be optimized to reduce problems of audio tracks that work in the offline version, but not when they are upload on the server due to the long file size. Similar consideration had to be taken on graphic images and sprites.
+			</li>
+        </ul>
+<p class="DescriptionText">&nbsp;</p>
+    </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>World.js</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>var World;
+//World is a WorldType object, it's initialized in the GameState initial function.
+//After its construction, the LoadLevel function is called to update the World info with the
+//Level 1 info.
+
+function WorldObj ()
+{
+	this.tx = 0;
+	this.walkable = 0; //0 walkable, 1, wall, 2 hole
+	this.Entity = [];
+	this.string = "null"; //This is for the level editor mode, I'm adding entities "referencers" here instead of instantiate it properly during the development time.
+}
+
+function WorldType()
+{
+	
+	//These ones mark the limit of the world array.
+	this.MaxColumns = 100;
+	this.MaxRows = 100;
+		
+	//These two are placing the position of the world, are key features for the scrolling of the objects.
+	this.X = 0;
+	this.Y = 0;
+	
+	//This indicate how big are each the tile.
+	this.SizeX = 128;
+	this.SizeY = 128;
+	
+	this.TilesData; //This containt the textures, collisions and entities of the current active map.
+	
+	
+	this.IsWalkable = function (c,r) //It checks if the tile given by [c,r] is a walkable, wall or fall.
+	{
+		var res = true;
+		
+		if ((c >= 0) && (r>=0) && (c &#x3C; this.MaxColumns) && (r &#x3C; this.MaxRows))//If it's in array range...
+		{
+			//console.log (this.TilesData[r][c].walkable);
+			if (this.TilesData[r][c].walkable > 0)
+			{
+				res = false;
+			}
+		}
+				
+		return res;
+	}
+		
+	this.UpdateEntity = function (OldX, OldY, NewX, NewY, Ent) //It deletes the Entity object from the old tile and adds it to the new tile. This is important for the overlaping order of the sprites.
+	{
+		if ((NewY >= 0) && (NewY &#x3C; this.MaxRows) && (NewX >= 0) && (NewX &#x3C; this.MaxColumns)) //If it's inside of the array range...
+		{
+			if ((OldY >= 0) && (OldY &#x3C; this.MaxRows) && (OldX >= 0) && (OldX &#x3C; this.MaxColumns)) //If it's inside of the array range...
+			{
+				var index = this.TilesData [OldY][OldX].Entity.indexOf(Ent); //It takes the index of Ent in the Entities array of the Old tile (¿Is it there? ¿In what place of the queue?...)
+				//console.log (index+" "+ Ent.type);
+				if (index >= 0) //If the index is 0 or bigger, is because it´s there. 
+				{
+					this.TilesData [OldY][OldX].Entity.splice (index, 1); //This line erase that Ent object. (Splice is a kind of erase, since the index, 1 object, it´s to say, it erase the object index only.
+				}
+				this.TilesData [NewY][NewX].Entity.push (Ent); //Adds the Ent object on the new tile marked by the NewX, NewY
+			}
+		}
+	}
+	
+	this.MoveWorld = function(newX, newY, OffsX, OffsY) //Scrolling, like most objects uses this X and Y like reference... that makes this a bit meaningful.
+	{
+		this.X = ((newX - 5) * this.SizeX + OffsX) * -1;
+		this.Y = ((newY - 3) * this.SizeY + OffsY) * -1;
+	}
+	
+	this.Construct = function () //This initialize the TilesData with empty basic data.
+	{
+		this.TilesData = new Array (this.MaxRows);
+		for (var i = 0; i &#x3C; this.MaxRows; i++)
+		{
+			this.TilesData [i] = new Array (this.MaxColumns);
+			for (var j = 0; j &#x3C; this.MaxColumns; j++)
+			{
+				this.TilesData [i][j] = new WorldObj();
+			}
+		}		
+	}
+	
+	this.Destructor = function () //Destroy data cutting all the referencing. When data is not referenced, it is open to be removed by the javascript browser.
+	{
+		if (this.TilesData != undefined)
+		{
+			for (var i = 0; i &#x3C; this.MaxRows; i++)
+			{
+				this.TilesData[i].splice (0, this.TilesData[i].length);
+			}
+			this.TilesData.splice (0, this.TilesData.length);
+		}
+	}
+	
+	this.drawMap = function()
+	{
+		var c = 0;
+		var r = 0;
+			
+		//First round, to draw background tiles.
+		for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+		{
+			for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+			{			
+				//Drawing rectangled tiles.
+				var Wx = this.SizeX * c + this.X;
+				var Wy = this.SizeY * r + this.Y;
+				ctx.drawImage(TexturesManager.pack, TexturesManager.GetTileX (this.TilesData [r][c].tx) , TexturesManager.GetTileY (this.TilesData [r][c].tx), TexturesManager.TileSize-1, TexturesManager.TileSize-1, Wx, Wy, TexturesManager.TileSize, TexturesManager.TileSize);			
+			}//End of for 
+		}
+		
+		//Second round, for drawing GameObjects
+		for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+		{
+			for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+			{
+				/*To draw the entities that are in that tile, there may happens 3 cases.
+				1º That there are not entities, this is the most frequent case.
+				2º That there are only 1 entity, this is the second most frequent case.
+				3º That there are more than 1 entity in the tile, usually 2, maybe more. then they will be sorted by theif offsetY before to be drawn.
+				
+				As these checks are happening in every frame, I´ll encapsulate with some conditionals to avoid some uneeded loops and sortings.
+				*/
+				
+				if (this.TilesData [r][c].Entity.length > 0) //Draw the entity that is in this tile.
+				{
+					if (this.TilesData [r][c].Entity.length == 1)//There is only 1 tile. We draw it.
+					{
+						if (this.TilesData [r][c].Entity[0].type != "Trigger")
+						{
+							this.TilesData [r][c].Entity[0].Draw();
+						}
+						
+					}else{ //There are multiple entities in the tile, sort them first and draw them.
+						
+						this.TilesData [r][c].Entity.sort(compare); //This sort the Entity container (a kind of list). It´s sorted by the OffsetY.
+						
+						for (var i = 0; i &#x3C; this.TilesData [r][c].Entity.length; i++)//Loop through the list to draw all its entities.
+						{
+							if (this.TilesData [r][c].Entity[i].type != "Trigger")
+							{
+								this.TilesData [r][c].Entity[i].Draw();
+							}
+						}			
+					}
+				}//end of Entity.length > 0.
+			}
+		}
+	}//End of the drawMap
+	
+	
+	//The next vars and functions are related to the Level Editor.
+	this.selX = 0;
+	this.selY = 0;
+
+	this.EditState = -1; //0 textures, 1 collisions, 2 entities.
+	this.SelTx = 0; //This can be a texture number, or a collision number
+	this.SelEntity; //This is a string of the entity type.
+	
+	this.UpdateSel = function ()
+	{
+		this.selX = Math.trunc( (Mx - this.X) /this.SizeX );  //Math.trunc Returns the integer part of the number x, removing any fractional digits.
+		this.selY = Math.trunc( (My - this.Y) /this.SizeY );
+		//console.log (this.selX + ", " + this.selY);
+	}
+	
+	this.UpdateEditWorld = function ()
+	{
+		
+		if (1 in MouseButtons) //Middle button, it changes between the different mode states (Background textures, collisions, entities)
+		{
+			delete MouseButtons[1];
+			
+			this.EditState++;
+			if (this.EditState >= 3) this.EditState = 0;
+			console.log ("Mouse State= " + this.EditState);
+		}
+		
+		if (0 in MouseButtons) //Left button.
+		{
+			delete MouseButtons[0];
+			
+			switch (this.EditState)
+			{
+				case 0: //Textures mode //Apply SelTx
+				if (this.selY > 0) //I am reserving the first row for the source textures.
+				{
+					this.TilesData [this.selY][this.selX].tx = this.SelTx;
+				}
+				break;
+				
+				case 1: //Collision mode
+				this.TilesData [this.selY][this.selX].walkable++;
+				if (this.TilesData [this.selY][this.selX].walkable > 2) 
+					this.TilesData [this.selY][this.selX].walkable = 0;
+				break;
+				
+				case 2: //Entities mode
+				if ((this.selY > 0)&& (this.TilesData [this.selY][this.selX].string != undefined)) //If I am not in the first row (reserved for copy) and there yes is an entity.
+				{
+					//I'm going to add just the name on the editor screen. Not to create the whole entity.
+					this.TilesData [this.selY][this.selX].string = this.SelEntity;
+				}
+				break;
+				
+				default:
+				break;
+			}
+			
+		}
+		
+		if (2 in MouseButtons) //Right button
+		{
+			//console.log (this.selY + ", " + this.selX);
+			delete MouseButtons[2];
+					
+			switch (this.EditState)
+			{
+				case 0: //Textures mode //Copy selected in SelTx.
+					this.SelTx = this.TilesData [this.selY][this.selX].tx;
+				break;
+				
+				case 1: //Collision mode
+					this.TilesData [this.selY][this.selX].walkable--;
+					if (this.TilesData [this.selY][this.selX].walkable &#x3C; 0) 
+						this.TilesData [this.selY][this.selX].walkable = 2;
+				break;
+				
+				case 2: //Entities mode
+				this.SelEntity = this.TilesData [this.selY][this.selX].string;
+				break;
+				
+				default:
+				break;
+			}
+		}
+		
+		if (32 in keysDown) //Space key  Writes the data in the console.
+		{//When the space key is pressed, it prints the content of the arrays on the console, ready for copy and paste in the code. (I need to change the name, but content ready)
+			
+			var string = "this.TextTiles3 =	[";
+			for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+			{
+				string = string + "[";
+				for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+				{
+					string = string + this.TilesData [r][c].tx;
+					if (c &#x3C; this.MaxColumns - 1)
+					{
+						string = string + ", "
+					}
+				}
+				if (r &#x3C; this.MaxRows -1)
+				{
+					 string = string + "], "
+				}else{
+					string = string + "]";
+				}
+			}
+			string = string + "];";
+			console.log (string);
+			
+			string = "this.ColTiles3 =	[";
+			for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+			{
+				string = string + "[";
+				for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+				{
+					string = string + this.TilesData [r][c].walkable;
+					if (c &#x3C; this.MaxColumns - 1)
+					{
+						string = string + ", "
+					}
+				}
+				if (r &#x3C; this.MaxRows -1)
+				{
+					 string = string + "], "
+				}else{
+					string = string + "]";
+				}
+			}
+			string = string + "];";
+			console.log (string);
+			
+			string = "this.ColTiles3 =	[";
+			for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+			{
+				string = string + "[";
+				for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+				{
+					string = string + "\"" + this.TilesData [r][c].string + "\""; //\ to use the literal and can record the ".
+					if (c &#x3C; this.MaxColumns - 1)
+					{
+						string = string + ", "
+					}
+				}
+				if (r &#x3C; this.MaxRows -1)
+				{
+					 string = string + "], "
+				}else{
+					string = string + "]";
+				}
+			}
+			string = string + "];";
+			console.log (string);
+			
+			
+			delete keysDown[32];
+		}	
+	}
+	
+	this.DrawEditWorld = function ()
+	{
+		var c = 0;
+		var r = 0;
+		
+		var FrameImg = new Image;
+		FrameImg.src = "Project/Assets/Tiles/" + "TileFrame128.png";
+		var SelImg = new Image;
+		SelImg.src = "Project/Assets/Tiles/" + "TileSel128.png";
+		
+		//Colision mode
+		var FrameImg1 = new Image;
+		FrameImg1.src = "Project/Assets/Tiles/" + "ColFr.png";
+		var SelImg1 = new Image;
+		SelImg1.src = "Project/Assets/Tiles/" + "ColSel.png";
+		var FrameImg2 = new Image;
+		FrameImg2.src = "Project/Assets/Tiles/" + "ColFr2.png";
+		var SelImg2 = new Image;
+		SelImg2.src = "Project/Assets/Tiles/" + "ColSel2.png";
+		var FrameImg3 = new Image;
+		FrameImg3.src = "Project/Assets/Tiles/" + "ColFr3.png";
+		var SelImg3 = new Image;
+		SelImg3.src = "Project/Assets/Tiles/" + "ColSel3.png";
+		
+		
+		for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+		{
+			for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+			{	
+				var Wx = this.SizeX * c + this.X;
+				var Wy = this.SizeY * r + this.Y;
+				
+				if ((c == this.selX) && (r == this.selY))
+				{
+					ctx.drawImage(SelImg, Wx, Wy);
+					
+					if (this.EditState != 1)
+					{
+						ctx.drawImage(SelImg, Wx, Wy);
+					}else{//It is the collision mode.
+						//console.log (this.TilesData [r][c].walkable);	
+						switch (this.TilesData [r][c].walkable)
+						{
+							case 0:
+							ctx.drawImage(SelImg1, Wx, Wy);
+							break;
+							case 1:
+							ctx.drawImage(SelImg2, Wx, Wy);
+							break;
+							case 2:
+							ctx.drawImage(SelImg3, Wx, Wy);
+							break;
+							default:
+							break;
+						}
+					}
+					
+				}else{
+					if (this.EditState != 1)
+					{
+						ctx.drawImage(FrameImg, Wx, Wy);
+					}else{//It is the collision mode.
+						//console.log (this.TilesData [r][c].walkable);	
+						switch (this.TilesData [r][c].walkable)
+						{
+							case 0:
+							ctx.drawImage(FrameImg1, Wx, Wy);
+							break;
+							case 1:
+							ctx.drawImage(FrameImg2, Wx, Wy);
+							break;
+							case 2:
+							ctx.drawImage(FrameImg3, Wx, Wy);
+							break;
+							default:
+							break;
+						}
+					}					
+				}
+				
+				if (this.EditState == 2) //It is in the entities mode.
+				{
+					if (this.TilesData [r][c].string != undefined)
+					{
+						if (this.TilesData [r][c].string != "null") //I make this as a inner if, because if string is undefined, it would cause a crash accesing for this evaluation, in this way, it only does it (as I need) just if it really exists.
+						{
+							ctx.fillText (this.TilesData [r][c].string, Wx , Wy + this.SizeY/ 5);
+						}
+					}
+				}
+			}//End of for columns
+		}//End of for Rows
+	}//End of DrawEditWorld
+	
+	
+	
+	
+}//end of the WorldType class
+
+
+
+function compare(a,b) 
+{
+  if (a.OffsetY &#x3C; b.OffsetY) //If a is upper than b, return false. 
+    return -1;
+  if (a.OffsetY > b.OffsetY) //If a is lower than b, return true.  So this will go later in the array what means, that b will be drawed over a.
+    return 1;
+  return 0;
+}
+
+
+WorldType.prototype.LoadLevel = function (level)
+{
+	/*First, I call these destructors, because GameObjectsManager and TilesData (in this same World object), 
+	are instances that links to a lot of data saved in the heap. If I, unlink the World with with a new 
+	WorldType, I would be leaving those data lost over there in the memory. And as they are referencing 
+	thes databases are referencing that located memery chunks, they wouldn´t be removed by the javascript
+	garbage collector (it only removes unreference chunks). So those destructors ensures that all the 
+	data points "null" in that way, as the inner data loose their references, they can be removed too.
+	*/
+	GameObjectsManager.Destructor(); //GameObjects destroyed.
+	this.Destructor(); //TilesData destroyed.
+	
+	
+	this.Levels = new WorldLevels; 
+	//WorldLevels is a database (defined after), it has got info of all the levels arrays, and it will 
+	//containt the tiles texture numbers, the walkable info and a container with the number of entities 
+	//steping on each tile.
+	
+	
+	//Now, I have to recreate an initialized TilesData
+	this.Construct ();//TilesData created.
+	
+	for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+	{
+		for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+		{
+			switch (level)
+			{
+				case 1:
+				
+					//Textures
+					if ((r &#x3C; this.Levels.TextTiles1.length) && (c &#x3C; this.Levels.TextTiles1[r].length))
+					{
+						this.TilesData [r][c].tx = this.Levels.TextTiles1[r][c];
+					}
+					
+					//Colliders
+					if ((r &#x3C; this.Levels.ColTiles1.length) && (c &#x3C; this.Levels.ColTiles1[r].length))
+					{
+						//console.log (this.Levels.ColTiles1[r][c]);
+						this.TilesData [r][c].walkable = this.Levels.ColTiles1[r][c];
+					}else{ //If there are not data.
+						this.TilesData [r][c].walkable = 2; //Set it like a hole, no able to walk, proyectiles can go through.
+					}
+					
+					//Objects
+					if ((r &#x3C; this.Levels.EntitiesType1.length) && (c &#x3C; this.Levels.EntitiesType1[r].length))
+					{
+						var Ent = GameObjectsManager.AddObjectToPool (this.Levels.EntitiesType1[r][c],r,c);  //Ent is used like an object for Entities, for other classes, it is not just a string.
+						this.TilesData [r][c].string = this.Levels.EntitiesType1[r][c];
+						if (typeof Ent != "undefined") //If an object has been added to the Objects pool, put the "pointer" into the pointers container of this tile.
+						{
+							this.TilesData [r][c].Entity.push (Ent);
+							
+							if (Ent.type == "Player")
+							{								
+								this.X = Ent.PosX;// * this.SizeX;
+								this.Y = Ent.PosY;// * this.SizeY;
+							}
+						}
+					}
+					break;
+				case 2:
+					//Textures
+					if ((r &#x3C; this.Levels.TextTiles2.length) && (c &#x3C; this.Levels.TextTiles2[r].length))
+					{
+						this.TilesData [r][c].tx = this.Levels.TextTiles2[r][c];
+					}
+					
+					//Colliders
+					if ((r &#x3C; this.Levels.ColTiles2.length) && (c &#x3C; this.Levels.ColTiles2[r].length))
+					{
+						//console.log (this.Levels.ColTiles1[r][c]);
+						this.TilesData [r][c].walkable = this.Levels.ColTiles2[r][c];
+					}
+					//Objects
+					if ((r &#x3C; this.Levels.EntitiesType2.length) && (c &#x3C; this.Levels.EntitiesType2[r].length))
+					{
+						var Ent = GameObjectsManager.AddObjectToPool (this.Levels.EntitiesType2[r][c],r,c);
+						if (typeof Ent != "undefined") //If an object has been added to the Objects pool, put the "pointer" into the pointers container of this tile.
+						{
+							this.TilesData [r][c].Entity.push (Ent);
+							this.TilesData [r][c].string = this.Levels.EntitiesType2[r][c];
+							
+							if (Ent.type == "Player")
+							{								
+								this.X = Ent.PosX;// * this.SizeX;
+								this.Y = Ent.PosY;// * this.SizeY;
+							}
+						}
+					}
+					break;	
+				
+				case 3:
+				
+					//Textures
+					if ((r &#x3C; this.Levels.TextTiles3.length) && (c &#x3C; this.Levels.TextTiles3[r].length))
+					{
+						this.TilesData [r][c].tx = this.Levels.TextTiles3[r][c];
+					}
+					
+					//Colliders
+					if ((r &#x3C; this.Levels.ColTiles3.length) && (c &#x3C; this.Levels.ColTiles3[r].length))
+					{
+						//console.log (this.Levels.ColTiles1[r][c]);
+						this.TilesData [r][c].walkable = this.Levels.ColTiles3[r][c];
+					}else{ //If there are not data.
+						this.TilesData [r][c].walkable = 2; //Set it like a hole, no able to walk, proyectiles can go through.
+					}
+					
+					//Objects
+					if ((r &#x3C; this.Levels.EntitiesType3.length) && (c &#x3C; this.Levels.EntitiesType3[r].length))
+					{
+						var Ent = GameObjectsManager.AddObjectToPool (this.Levels.EntitiesType3[r][c],r,c);  //Ent is used like an object for Entities, for other classes, it is not just a string.
+						this.TilesData [r][c].string = this.Levels.EntitiesType3[r][c];
+						if (typeof Ent != "undefined") //If an object has been added to the Objects pool, put the "pointer" into the pointers container of this tile.
+						{
+							this.TilesData [r][c].Entity.push (Ent);
+							
+							if (Ent.type == "Player")
+							{								
+								this.X = Ent.PosX;// * this.SizeX;
+								this.Y = Ent.PosY;// * this.SizeY;
+							}
+						}
+					}
+					break;
+				
+				
+				default:
+					break;
+			}
+		}
+	}
+	
+	if (level == 0) //If there is not level data, 
+	{
+		this.EditState = 0; //It activate the edition functions.
+		
+		//It will load all the textures in the top row of the map to can copy and paste them.
+		var txCounter = 0;
+		for (var r = 0; r &#x3C; this.MaxRows; r++)//We do the drawing of the rows and columns in the screen order, from the top left to the bottom right.
+		{
+			for (var c = 0; c &#x3C; this.MaxColumns; c++) //But in each line, we chose if they are odd or even (with the "half" variable). As they have an offset depending of it.
+			{
+				if (txCounter &#x3C; TexturesManager.TxMap.size-1)
+				{
+					this.TilesData [r][c].tx = txCounter;
+					txCounter++;
+				}else{
+					this.TilesData [r][c].tx = 0;
+				}
+			}
+		}
+		
+		//it will just instantiate a player to ensure that the gamestate is still working.
+		var Ent = GameObjectsManager.AddObjectToPool ("Player",0,0);
+		if (typeof Ent != "undefined") //If an object has been added to the Objects pool, put the "pointer" into the pointers container of this tile.
+		{
+			this.TilesData [0][0].Entity.push (Ent);
+
+			if (Ent.type == "Player")
+			{								
+				this.X = Ent.PosX;// * this.SizeX;
+				this.Y = Ent.PosY;// * this.SizeY;
+				//console.log ("Player Speed" + Ent.MovSpeed);
+				GameObjectsManager.PlayerObj.MovSpeed *= 3; //In this mode, the player moves faster.
+			}
+		}
+	}
+}
+				
+			</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+					
+	<!-- Art Gallery Block -->
+	<div class="DescriptionContainer">
+		<h2>Art Support</h2>
+	</div>
+	
+	<div class= "LGContainer">
+		<div class="LGrow">
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/03_Java_Azhulia/03_art1.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/03_Java_Azhulia/PlayerVicent2.png" style="width:100%" onclick="openModal();currentSlide(2)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/03_Java_Azhulia/TELOSlogo.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/03_Java_Azhulia/Tiles.png" style="width:100%" onclick="openModal();currentSlide(4)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/03_Java_Azhulia/Planets.png" style="width:100%" onclick="openModal();currentSlide(5)" class="LGhover-shadow LGcursor">
+			</div>
+		</div>
+
+		<div id="myLGModal" class="LGmodal">
+			<span class="LGclose LGcursor" onclick="closeModal()">&times;</span>
+			<div class="LGmodal-content">
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">1 / 5</div>
+					<img src="../../Resources/Prog_img/03_Java_Azhulia/03_art1.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">2 / 5</div>
+					<img src="../../Resources/Prog_img/03_Java_Azhulia/PlayerVicent2.png" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">3 / 5</div>
+					<img src="../../Resources/Prog_img/03_Java_Azhulia/TELOSlogo.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">4 / 5</div>
+					<img src="../../Resources/Prog_img/03_Java_Azhulia/Tiles.png" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">5 / 5</div>
+					<img src="../../Resources/Prog_img/03_Java_Azhulia/Planets.png" style="width:100%">
+				</div>
+
+				<a class="LGprev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="LGnext" onclick="plusSlides(1)">&#10095;</a>
+
+				<div class="LGcaption-container">
+					<p id="LGcaption"></p>
+				</div>
+
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/03_Java_Azhulia/03_art1.jpg" style="width:100%" onclick="currentSlide(1)" alt="1 / 5">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/03_Java_Azhulia/PlayerVicent2.png" style="width:100%" onclick="currentSlide(2)" alt="2 / 5">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/03_Java_Azhulia/TELOSlogo.jpg" style="width:100%" onclick="currentSlide(3)" alt="3 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/03_Java_Azhulia/Tiles.png" style="width:100%" onclick="currentSlide(4)" alt="4 / 5">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/03_Java_Azhulia/Planets.png" style="width:100%" onclick="currentSlide(5)" alt="5 / 5">
+				</div>
+			</div>
+		</div>
+	</div>
+			
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+	<script src="../../Resources/Codes/Lightbox.js"></script>
+</body>
+</html>

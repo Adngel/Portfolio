@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+	
+<body onload="Start()">
+<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a class="active" href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 5</div>
+			<img src="../../Resources/Art_img/01_Kurgaab/01_0.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 5</div>
+			<img src="../../Resources/Art_img/01_Kurgaab/01_1.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 5</div>
+			<img src="../../Resources/Art_img/01_Kurgaab/01_2.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 5</div>
+			<img src="../../Resources/Art_img/01_Kurgaab/01_3.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 5</div>
+		  <img src="../../Resources/Art_img/01_Kurgaab/01_4.jpg" style="width:100%">
+		</div>
+		
+	  <!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Art_img/01_Kurgaab/01_0.jpg" style="width:100%" onclick="currentSlideG(1)" alt="1/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Art_img/01_Kurgaab/01_1.jpg" style="width:100%" onclick="currentSlideG(2)" alt="2/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Art_img/01_Kurgaab/01_2.jpg" style="width:100%" onclick="currentSlideG(3)" alt="3/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Art_img/01_Kurgaab/01_3.jpg" style="width:100%" onclick="currentSlideG(4)" alt="4/5">
+			</div>
+			<div class="GalleryColumn">
+			  <img class="GalleryDemo GalleryCursor" src="../../Resources/Art_img/01_Kurgaab/01_4.jpg" style="width:100%" onclick="currentSlideG(5)" alt="5/5">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>Kurgaab: And the curse of the prophet</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;The goal of this projects, was experience the development of a game constrained to the limitation of a hardware, in this case, the hardware was an emulator of Nintendo Advance. For it, we made a prototype of 2d action adventure game, the adventurer must reach to the top of the towe, fighting with enemies and avoiding traps.&nbsp; &nbsp;<br>
+          <br>
+          &nbsp; &nbsp; &nbsp;The prototype were made by pairs, in my case, my partner worked in most of the programing aspect, while I was supporting with the assets creation, and the code for the traps, HUD and final score. Some of the challenges that I've found in this project were the next:&nbsp;&nbsp; </p>
+        <ul class="DescriptionList">
+          <li>The size for the sprites&nbsp; was requried to not be bigger than 16 pixels.</li>
+          <li>The color palette had a special structure, it was an array of 16x16 colors, but each tile, could only use the colors of 1 row, so the palette and the tiles had to be designed with this restriction in mind.</li>
+          <li>Due to the hardware limitations, we had to reduce the number of enemies per level and discard the shadow layer.</li>
+      </ul>
+		
+	<p class="DescriptionText">&nbsp; &nbsp; &nbsp;Although modern consoles hasn't got the limitations that the Nintendo Advance had got, this experience helped me to realize in the importance of tests and optimization.<br>
+          <br>
+	</p>
+</div>
+	<!-- .................... -->
+		
+	<!-- Art Gallery Block -->
+	<div class="DescriptionContainer">
+		<h2>Art Support</h2>
+	</div>
+	
+	<div class= "LGContainer">
+		<div class="LGrow">
+			<div class="LGcolumn">
+				<img src="../../Resources/Art_img/01_Kurgaab/01_bg.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Art_img/01_Kurgaab/01_characters.png" style="width:100%" onclick="openModal();currentSlide(2)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Art_img/01_Kurgaab/01_l2.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Art_img/01_Kurgaab/01_Tower.jpg" style="width:100%" onclick="openModal();currentSlide(4)" class="LGhover-shadow LGcursor">
+			</div>
+		</div>
+
+		<div id="myLGModal" class="LGmodal">
+			<span class="LGclose LGcursor" onclick="closeModal()">&times;</span>
+			<div class="LGmodal-content">
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">1 / 4</div>
+					<img src="../../Resources/Art_img/01_Kurgaab/01_bg.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">2 / 4</div>
+					<img src="../../Resources/Art_img/01_Kurgaab/01_characters.png" style="width:75%" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">3 / 4</div>
+					<img src="../../Resources/Art_img/01_Kurgaab/01_l2.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">4 / 4</div>
+					<img src="../../Resources/Art_img/01_Kurgaab/01_Tower.jpg" class= "centerIMG">
+				</div>
+
+				<a class="LGprev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="LGnext" onclick="plusSlides(1)">&#10095;</a>
+
+				<div class="LGcaption-container">
+					<p id="LGcaption"></p>
+				</div>
+
+			  <div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Art_img/01_Kurgaab/01_bg.jpg" style="width:100%" onclick="currentSlide(1)" alt="1 /4">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Art_img/01_Kurgaab/01_characters.png" style="width:100%" onclick="currentSlide(2)" alt="2 /4">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Art_img/01_Kurgaab/01_l2.jpg" style="width:100%" onclick="currentSlide(3)" alt="3 /4">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Art_img/01_Kurgaab/01_Tower.jpg" style="width:100%" onclick="currentSlide(4)" alt="4 /4">
+				</div>
+			</div>
+		</div>
+	</div>
+			
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a class="active" href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+	<script src="../../Resources/Codes/Lightbox.js"></script>
+
+</body>
+</html>

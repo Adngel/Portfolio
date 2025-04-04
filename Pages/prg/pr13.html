@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">About Me</a>
+	  </div>
+	</div>
+	
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Modal Image Block -->
+	<div class="modalContainer">
+		<!-- Trigger the Modal -->
+		<img id="myModalImg" src="../../Resources/Prog_img/13_Directx_Shaders/13_Shaders.jpg" alt="">
+	
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+	  		<span class="modalClose">&times;</span>
+  			<img class="modal-content" id="img01">
+	  		<div id="modalCaption"></div>
+		</div>
+	</div>
+				
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>Main Shaders Study</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;At the end of the university degree, we had to do a research into a topic of our interest, I choosed shaders, I wanted to know not just what their usual parametters, but I also wanted to understand the&nbsp; mathematical logic in the litghting of the pixel shaders.<br>
+          <br>&nbsp; &nbsp; &nbsp;I accompained my work with a Directx 11 application developed by myself, that can render a mesh, a light source, and activate different pixel shaders on it.<br>
+          <br>The pixel shaders I covered were:<br>
+        </p>
+        <ul class="DescriptionList">
+          	<li>Unlit</li>
+          	<li>Diffuse</li>
+          	<li>Specular</li>
+         	<li>Normal Mapping</li>
+          	<li>Alpha Blending</li>
+         	<li>Isotropic Specular</li>
+         	<li>Cubemap Reflection</li>
+        	<li>Sinusoidal Distortion</li>
+		</ul>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>PixelShader_normal.hlsl</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+cbuffer lightBuffer : register(b0)
+{
+     float3 ambientLightColor;
+     float ambientLightStrength;
+
+     float3 dynamicLightColor;
+     float dynamicLightStrength;
+
+     float3 specularLightColor;
+     float specularLightPower;
+
+     float3 dynamicLightPosition;
+     float dynamicLightAttenuation_Const;
+     float dynamicLightAttenuation_Linear;
+     float dynamicLightAttenuation_Quad;
+}
+
+struct PS_INPUT
+{
+     float4 inPosition : SV_POSITION;
+     float2 inTexCoord : TEXCOORD;
+     float4 inReflectionPosition : TEXCOORD1;
+     float3 inNormal : NORMAL;
+     float3 inWorldPos : WORLD_POSITION;
+     float3 inViewDir : VIEW_DIRECTION;
+     float3 inTangent : TANGENT;
+};
+
+Texture2D objTexture : TEXTURE : register(t0);
+Texture2D extTexture : TEXTURE : register(t1);
+SamplerState objSamplerState : SAMPLER : register(s0);
+
+float3 NormalSampleToWorldSpace(float3 normalMapSample, float3 NormalW, float4 TangentW)
+{
+     float3 NormalT = (2.0f * normalMapSample) -1.0f; //Change normal map range from [0, 1] to [-1, 1]
+     float3 N = normalize(NormalW);
+     float3 T = normalize(TangentW.rgb - dot(TangentW.rgb, N) * N); //Make sure tangent is completely orthogonal to normal
+     float3 B = cross(N, T) * TangentW.w; //Create the biTangent
+
+     float3x3 TBN = float3x3(T, B, N); //Create the "Texture Space"
+
+     float3 bumpedNormalW = mul(NormalT, TBN); //Convert normal from normal map to texture space and store in input.normal
+
+     return normalize(bumpedNormalW);
+}
+
+float4 main(PS_INPUT input) : SV_TARGET
+{
+     float3 specularShine = float3(0.0f, 0.0f, 0.0f); //If there are light in the pixel, we calculate the spec, otherwise, we use this one.
+
+     //Texture
+     float3 sampleColor = objTexture.Sample(objSamplerState, input.inTexCoord);
+     sampleColor = sampleColor;
+
+     //Normal
+     float3 sampleNormal = extTexture.Sample(objSamplerState, input.inTexCoord);
+     float3 bumpedNormalW = NormalSampleToWorldSpace(sampleNormal, input.inNormal, float4(input.inTangent, 1.0f));
+     input.inNormal = bumpedNormalW;
+
+     //Ambient Light
+     float3 appliedLight = ambientLightColor * ambientLightStrength;
+
+
+     //Diffuse Light
+     float3 vectorToLight = normalize(dynamicLightPosition - input.inWorldPos);
+     float diffuseLightIntensity = max(dot(vectorToLight, input.inNormal), 0); //use max to ensure there are not negative numbers
+
+     if (diffuseLightIntensity > 0.0f)
+     {
+          float distanceToLight = distance(dynamicLightPosition, input.inWorldPos);
+          float attenuationFactor = 1 / (dynamicLightAttenuation_Const + dynamicLightAttenuation_Linear * distanceToLight +                        dynamicLightAttenuation_Quad * pow(distanceToLight, 2));
+          diffuseLightIntensity *= attenuationFactor;
+
+          appliedLight += (diffuseLightIntensity * (dynamicLightColor * dynamicLightStrength));
+
+          //Specular Light
+          // Calculate the reflection vector: formula (2 * LightIntensity * VertexNormal - LightDirection)
+          float3 reflection = normalize(2 * diffuseLightIntensity * input.inNormal - vectorToLight);
+          // Calculate the speculate component:
+          specularShine = pow(saturate(dot(reflection, input.inViewDir)), specularLightPower);
+          specularShine *= specularLightColor;
+     }
+
+     float3 finalcolor = (appliedLight * sampleColor) + specularShine;
+
+     return float4(finalcolor, 1.0f);
+}
+				
+			</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/ModalImg.js"></script>
+</body>
+</html>

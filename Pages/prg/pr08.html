@@ -1,0 +1,495 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 6</div>
+			<img src="../../Resources/Prog_img/08_AI_Learning/08_0.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 6</div>
+			<img src="../../Resources/Prog_img/08_AI_Learning/08_1.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 6</div>
+			<img src="../../Resources/Prog_img/08_AI_Learning/08_2.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 6</div>
+			<img src="../../Resources/Prog_img/08_AI_Learning/08_3.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 6</div>
+			<img src="../../Resources/Prog_img/08_AI_Learning/08_4.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">6 / 6</div>
+			<img src="../../Resources/Prog_img/08_AI_Learning/08_5.jpg" style="width:100%">
+		</div>
+
+		<!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/08_AI_Learning/08_0.jpg" style="width:100%" onclick="currentSlideG(1)" alt="1/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/08_AI_Learning/08_1.jpg" style="width:100%" onclick="currentSlideG(2)" alt="2/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/08_AI_Learning/08_2.jpg" style="width:100%" onclick="currentSlideG(3)" alt="3/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/08_AI_Learning/08_3.jpg" style="width:100%" onclick="currentSlideG(4)" alt="4/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/08_AI_Learning/08_4.jpg" style="width:100%" onclick="currentSlideG(5)" alt="5/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/08_AI_Learning/08_5.jpg" style="width:100%" onclick="currentSlideG(6)" alt="6/6">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>AI Agent Learning</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;This prototype developed with Unity, is an experiment of how an AI could learn an unknown environment.<br>
+          <br>&nbsp; &nbsp; &nbsp;At the beggining, a random map is generated with a robot in centre, the user, can press click on any point of the map and the robot will try to go to that point, using the A* pathfinding algorighm.<br>
+          <br>&nbsp; &nbsp; &nbsp;However, the robot is not informed about the map geography, in its first attemphs, is very likely that the robot dan't reach the goal point because it find an unexpected wall in the path.&nbsp;<br>
+          <br>&nbsp; &nbsp; &nbsp;To succeed, the robot has two tools, one is an area sensor that it uses to read its near surroundings, and also, he has a mental map that it can update to record the obstacles it finds.<br>
+          <br>The result is that, as the robot explores the zone, and goes updating its mental map, he manages to make smarter paths to reach the goal.
+        </p>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>LogicEnvNode.cs</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class LogicEnvNode
+{
+     public Vector2Int Coord;
+     public bool Obstacle = false;
+     public bool Goal = false;
+     public bool Start = false;
+
+     public LogicEnvNode Parent;
+
+
+     //GCost Distance from starting node (Just counting tiles in the coords).
+     //HCost Distance from end node (Just counting tiles in the coords).
+     //FCost = GCost + HCost, Used to decide which neighbour is the next.
+     public int GCost = int.MaxValue;
+     public int HCost = int.MaxValue;
+     public int FCost = int.MaxValue;
+
+     public LogicEnvNode()
+     {
+          Coord = new Vector2Int(0, 0);
+          Obstacle = false;
+          Goal = false;
+          Start = false;
+     } 
+
+     public LogicEnvNode (Vector2Int i_Coord, bool i_obstacle = false)
+     {
+          Coord = i_Coord;
+          Obstacle = i_obstacle;
+          Goal = false;
+          Start = false;
+     }
+}
+
+public class AI_Pathfinding : MonoBehaviour
+{
+     public LogicEnvNode[,] LogicEnvMap;
+     public Vector2Int MapSize;
+     [SerializeField] Vector2Int StartPath;
+     [SerializeField] Vector2Int GoalPath;
+     public List<Vector2Int> SolutionPath = new List<Vector2Int>(); //To store the final path
+     List<Vector2Int> TilesWithOpenPaths = new List<Vector2Int>(); //To evaluate the tiles we discover
+     HashSet<Vector2Int> TilesAlreadyChecked = new HashSet<Vector2Int>(); //HashSet to check if an item is in the list
+     AI_LogicMapDraw MapDrawer;
+     [SerializeField] M_AgentInfo AgentHUD;
+
+     Vector2 Offset;
+     Vector2Int Centre;
+     public float WorldSize = 1.0f;
+
+     void Start()
+     {
+          //Initialization
+          LogicEnvMap = new LogicEnvNode[MapSize.x, MapSize.y];
+          for (int x = 0; x < LogicEnvMap.GetLength(0); x++)
+          {
+               for (int y = 0; y < LogicEnvMap.GetLength(1); y++)
+               {
+                    LogicEnvMap[x, y] = new LogicEnvNode (new Vector2Int(x, y));
+               }
+          }
+
+          Centre = new Vector2Int((int)(MapSize.x / 2),(int) (MapSize.y / 2));
+          Offset = new Vector2(MapSize.x / 2, MapSize.y / 2);
+
+          MapDrawer = GetComponent<AI_LogicMapDraw>();
+
+          SetStart(StartPath);
+          SetGoal(GoalPath);
+          CalculatePath();
+     } 
+
+    void PrintList(LogicEnvNode[,] Grid)
+     {
+          string line = "";
+          for (int x = 0; x < Grid.GetLength(0); x++)
+          {
+               for (int y = 0; y < Grid.GetLength(1); y++)
+               {
+                    line = line + Grid[x, y].Obstacle + " ";
+               }
+               Debug.Log(line);
+               line = "";
+          }
+     }
+
+     void PrintSolutionPath ()
+     {
+          for (int i = 0; i < SolutionPath.Count ; i++)
+          {
+               print(LogicEnvMap[SolutionPath[i].x, SolutionPath[i].y].Coord);
+          }
+     } 
+
+    public void SetStart (Vector2Int NewCoord)
+     {
+          LogicEnvMap[StartPath.x, StartPath.y].Start = false;
+          StartPath = NewCoord;
+          LogicEnvMap[NewCoord.x, NewCoord.y].Start = true;
+     } 
+
+    public void SetStart(Vector3 NewCoord)
+     {
+          SetStart(WorldPosToLogicPos(NewCoord));
+     }
+
+     public void SetGoal(Vector2Int NewCoord)
+     {
+          LogicEnvMap[GoalPath.x, GoalPath.y].Goal = false;
+          GoalPath = NewCoord;
+          LogicEnvMap[NewCoord.x, NewCoord.y].Goal = true;
+     } 
+
+    public void SetGoal(Vector3 NewCoord)
+     {
+          SetGoal(WorldPosToLogicPos(NewCoord));
+     }
+
+     public void ResetMemory ()
+     {
+
+          LogicEnvMap = new LogicEnvNode[MapSize.x, MapSize.y];
+          for (int x = 0; x < LogicEnvMap.GetLength(0); x++)
+          {
+               for (int y = 0; y < LogicEnvMap.GetLength(1); y++)
+               {
+                    LogicEnvMap[x, y] = new LogicEnvNode(new Vector2Int(x, y));
+               }
+          }
+     }
+
+     public void CalculatePath ()
+     {
+          SolutionPath.Clear();
+          TilesWithOpenPaths.Clear(); //The set of nodes to be evaluated
+          TilesAlreadyChecked.Clear(); //The set of nodes already evaluated
+
+
+          //We start putting the CurrentNode at the openlist, (a discovered tile that we&#39;re going to check).
+          TilesWithOpenPaths.Add(LogicEnvMap[StartPath.x, StartPath.y].Coord);
+
+          //while (CurrentNode.Goal == false) //As long as we have not reached the end
+          while (TilesWithOpenPaths.Count > 0)
+          {
+               Vector2Int CurrentNode = TilesWithOpenPaths[0];
+               for (int i = 1; i < TilesWithOpenPaths.Count; i++)
+               {
+                    //In this next if, we will check in the list of discovered tiles, if there is one with
+                    //lower FCost than our current tile, or if it has the same FCost (like happens on corners)
+                    //check the shorter HCost (which one is closer to the target tile).
+                    if ( LogicEnvMap[TilesWithOpenPaths[i].x, TilesWithOpenPaths[i].y].FCost < LogicEnvMap[CurrentNode.x, CurrentNode.y].FCost
+                    ||
+                    LogicEnvMap[TilesWithOpenPaths[i].x, TilesWithOpenPaths[i].y].FCost == LogicEnvMap[CurrentNode.x, CurrentNode.y].FCost
+                    &&
+                    LogicEnvMap[TilesWithOpenPaths[i].x, TilesWithOpenPaths[i].y].HCost < LogicEnvMap[CurrentNode.x, CurrentNode.y].HCost
+                    )
+                    {
+                         CurrentNode = TilesWithOpenPaths[i];
+                    }
+               }//At this point, Current Node is pointing to the tile with the smallest FCost
+
+               TilesWithOpenPaths.Remove(CurrentNode);
+               TilesAlreadyChecked.Add(CurrentNode);
+
+               if (LogicEnvMap[CurrentNode.x,CurrentNode.y].Goal)
+               {//If we have reached the final of the path.
+                    GetFinalPath();
+               }
+
+               foreach (Vector2Int NeighborNode in GetNeighboringNodes(CurrentNode))
+               {
+                    if ((LogicEnvMap[NeighborNode.x,NeighborNode.y].Obstacle) || (TilesAlreadyChecked.Contains(NeighborNode)) )
+                    {//If it's an obstacle or it's already checked
+                         continue; //Just jump to the next Neighbor.
+                    }
+                    int MoveCost = LogicEnvMap[CurrentNode.x, CurrentNode.y].GCost + GetManhattenDistance(CurrentNode, NeighborNode);
+
+                    if (MoveCost < LogicEnvMap[NeighborNode.x, NeighborNode.y].GCost || !TilesWithOpenPaths.Contains(NeighborNode))
+                    {
+                         //If this neighbour, has a shorter gCost than the original tile, or it has not been counted at all yet
+                         LogicEnvMap[NeighborNode.x, NeighborNode.y].GCost = MoveCost;
+                         LogicEnvMap[NeighborNode.x, NeighborNode.y].HCost = GetManhattenDistance(NeighborNode, GoalPath);
+                         LogicEnvMap[NeighborNode.x, NeighborNode.y].Parent = LogicEnvMap[CurrentNode.x, CurrentNode.y]; //Used to once reached the goal, to can go backwards later and make the final path.
+
+                         if (!TilesWithOpenPaths.Contains (NeighborNode))
+                         {
+                              TilesWithOpenPaths.Add(NeighborNode);
+                         }
+                    }
+               }
+          }
+     }
+
+     void GetFinalPath ()
+     {
+          Vector2Int CurrentNode = GoalPath;
+
+          while (CurrentNode != StartPath)
+          {
+               SolutionPath.Add(CurrentNode);
+               CurrentNode = LogicEnvMap[CurrentNode.x,CurrentNode.y].Parent.Coord;
+          }
+          SolutionPath.Reverse();
+          AgentHUD.SetDistanceVar(SolutionPath.Count);
+     }
+
+     int GetManhattenDistance (Vector2Int a_NodeA, Vector2Int a_NodeB)
+     {
+          int ix = Mathf.Abs(a_NodeA.x - a_NodeB.x);
+          int iy = Mathf.Abs(a_NodeA.y - a_NodeB.y);
+
+          return ix + iy;
+     }
+
+     public List <Vector2Int> GetNeighboringNodes (Vector2Int a_Node)
+     {
+          //This function is just to return the neighbours coordinates of a given tile
+
+          List<Vector2Int> NeighboringNodes = new List<Vector2Int>();
+          int xCheck;
+          int yCheck;
+
+          //Right Side
+          xCheck = a_Node.x + 1;
+          yCheck = a_Node.y;
+          //Now we check if the tile is inside the board (the borders may have out of range neighbors).
+          if (xCheck >= 0 && xCheck < LogicEnvMap.GetLength(0))
+          {
+               if (yCheck >= 0 && yCheck < LogicEnvMap.GetLength(1))
+               {
+                    NeighboringNodes.Add(new Vector2Int(xCheck, yCheck));
+               }
+          }
+
+          //Left Side
+          xCheck = a_Node.x - 1;
+          yCheck = a_Node.y;
+          //Now we check if the tile is inside the board (the borders may have out of range neighbors).
+          if (xCheck >= 0 && xCheck < LogicEnvMap.GetLength(0))
+          {
+               if (yCheck >= 0 && yCheck < LogicEnvMap.GetLength(1))
+               {
+                    NeighboringNodes.Add(new Vector2Int(xCheck, yCheck));
+               }
+          }
+
+          //Top Side
+               xCheck = a_Node.x;
+               yCheck = a_Node.y + 1;
+               //Now we check if the tile is inside the board (the borders may have out of range neighbors).
+               if (xCheck >= 0 && xCheck < LogicEnvMap.GetLength(0))
+               {
+                    if (yCheck >= 0 && yCheck < LogicEnvMap.GetLength(1))
+                    {
+                         NeighboringNodes.Add(new Vector2Int(xCheck, yCheck));
+                    }
+               }
+
+               //Bottom Side
+               xCheck = a_Node.x;
+               yCheck = a_Node.y - 1;
+               //Now we check if the tile is inside the board (the borders may have out of range neighbors).
+               if (xCheck >= 0 && xCheck < LogicEnvMap.GetLength(0))
+               {
+                    if (yCheck >= 0 && yCheck < LogicEnvMap.GetLength(1))
+                    {
+                         NeighboringNodes.Add(new Vector2Int(xCheck, yCheck));
+                    }
+               }
+
+          return NeighboringNodes;
+     }
+
+     public Vector3 LogicPosToWorldPos (Vector2Int Coord)
+     {
+          return new Vector3((- Offset.x + Coord.x), 0, (-Offset.y + Coord.y)) * WorldSize;
+     }
+
+     public Vector2Int WorldPosToLogicPos(Vector3 Pos)
+     {
+          Vector2Int result = new Vector2Int((int)(+Centre.x + (Pos.x/WorldSize)),(int)(+Centre.y + (Pos.z/WorldSize)));
+          //print(Pos + " -> " + result );
+          if (result.x >= LogicEnvMap.GetLength(0))
+          {
+               print("NewCoord X is out of bounds");
+               result.x = LogicEnvMap.GetLength(0);
+          }
+
+          if (result.y >= LogicEnvMap.GetLength(1))
+          {
+               print("NewCoord Y is out of bounds");
+               result.y = LogicEnvMap.GetLength(1);
+          }
+          return result;
+     }
+
+     public Vector3 GetNewFreePoint()
+     {
+          bool Accepted = false;
+          Vector2Int RandomCoord = Vector2Int.zero;
+
+          while (!Accepted)
+          {
+               RandomCoord = new Vector2Int(Random.Range(0, LogicEnvMap.GetLength(0)), Random.Range(0, LogicEnvMap.GetLength(1)));
+               if (!LogicEnvMap[RandomCoord.x, RandomCoord.y].Obstacle)
+               {
+                    Accepted = true;
+               }
+          }
+          return LogicPosToWorldPos(RandomCoord);
+     }
+
+     public bool CheckObstacle (Vector3 Pos)
+     {
+          //true, the obstacle was already registered.
+          //false the obstacle is new.
+
+          bool DidIKnowit = false;
+          Vector2Int ObstacleCoords = WorldPosToLogicPos(Pos);
+          if (LogicEnvMap[ObstacleCoords.x, ObstacleCoords.y].Obstacle)
+          {
+               DidIKnowit = true;
+          }else{
+               LogicEnvMap[ObstacleCoords.x, ObstacleCoords.y].Obstacle = true;
+               MapDrawer.UpdateMap();
+          }
+
+          return DidIKnowit;
+     }
+ }
+				
+			</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+					
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+</body>
+</html>

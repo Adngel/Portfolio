@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div> </div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 6</div>
+			<img src="../../Resources/Prog_img/09_AI_FSM/09_0.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 6</div>
+			<img src="../../Resources/Prog_img/09_AI_FSM/09_6.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 6</div>
+			<img src="../../Resources/Prog_img/09_AI_FSM/09_2.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 6</div>
+			<img src="../../Resources/Prog_img/09_AI_FSM/09_3.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 6</div>
+			<img src="../../Resources/Prog_img/09_AI_FSM/09_4.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">6 / 6</div>
+			<img src="../../Resources/Prog_img/09_AI_FSM/09_5.png" style="width:100%">
+		</div>
+		
+	  <!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/09_AI_FSM/09_0.png" style="width:100%" onclick="currentSlideG(1)" alt="1/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/09_AI_FSM/09_6.png" style="width:100%" onclick="currentSlideG(2)" alt="2/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/09_AI_FSM/09_2.png" style="width:100%" onclick="currentSlideG(3)" alt="3/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/09_AI_FSM/09_3.png" style="width:100%" onclick="currentSlideG(4)" alt="4/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/09_AI_FSM/09_4.png" style="width:100%" onclick="currentSlideG(5)" alt="5/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/09_AI_FSM/09_5.png" style="width:100%" onclick="currentSlideG(6)" alt="6/6">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>AI Finite State Machine</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;This prototype made with Unity Engine, has the focus in the enemies behaviour. Using a method of interfaces to add abilities to the enemies.<br>
+          <br>Both characters (the player and the red enemies) start with a Character motor code, this one manages the movement, animation and speed, but it doesn't tells to where or when move.<br>
+          <br>The player's character has addons to read the user inputs. While the enemies, uses a Finite State Machine that varies depending of the player's ammo, enemy's ammo, and enemy's life points. Depending of them, enemies can do the next actions:<br>
+        </p>
+        <ul class="DescriptionList">
+          <li>Wait on the position.</li>
+          <li>Move randomly through a close area.</li>
+          <li>Chase the player. (Trying to go where the player is going instead of just following its last position).</li>
+          <li>Shoot to the player.</li>
+          <li>Run away from the player.</li>
+          <li>Run to another point away of other enemies. (So they avoid being close each other).</li>
+        </ul>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>FSM_Enemy.cs</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+using System.Collections;
+using UnityEngine;
+
+public class FSM_Enemy : BH_SteeringBehaviour
+{
+     [SerializeField] private BH_Arrive _seekBehaviour;
+     [SerializeField] private BH_Flee _fleeBehaviour;
+
+     private Vector2 _steeringForce;
+
+     private IEnumerator _currState;
+     private IEnumerator _nextState;
+
+     [SerializeField] private Transform _Player; //These enemies know where the player is.
+     [SerializeField] private Skl_Shooting _shootingManager; //If they have bullets, they chase and attack player, otherwise, they run away.
+     [SerializeField] private StatusVars _GameManager; //To check player life
+
+     private IEnumerator FSM()
+     {
+          while (_currState != null)
+          {
+               yield return StartCoroutine(_currState);
+               _currState = _nextState;
+               _nextState = null;
+          }
+     }
+
+     private void Start()
+     {
+          _currState = Idle();
+          StartCoroutine(FSM());
+     }
+
+     private IEnumerator Idle()
+     {
+          Debug.Log($"ENTERED {nameof(Idle)}");
+          _steeringForce = Vector2.zero;
+          _seekBehaviour.Target = null;
+          _fleeBehaviour.Target = null;
+     
+          while (_nextState == null)
+          {
+               int PotentialDamage = _shootingManager.Ammo * 25;
+               if (PotentialDamage >= _GameManager.HealthValue) //It can kill the player, go for it.
+               {
+                    _seekBehaviour.Target = _Player;
+                    _fleeBehaviour.Target = null; //It stops of fleeing from the player.
+                    _nextState = Seek(_seekBehaviour.Target);
+               }else{ //Stay there till any ammo appears (but flee from the player if he approaches).
+                    _fleeBehaviour.Target = _Player;
+                    _steeringForce = _fleeBehaviour.SteeringForce;
+               }
+               yield return null;
+          }
+     }
+
+     private IEnumerator Seek(Transform target)
+     {
+          Debug.Log($"ENTERED {nameof(Seek)}");
+          _seekBehaviour.Target = target;
+
+          while (_nextState == null)
+          {
+               if (Vector2.Distance(transform.position, _Player.position) < 10)
+               {
+                    //If he is close...
+                    if (_shootingManager.Ammo > 0) //if he has got ammo
+                    {
+                         //Attack
+                         if (Time.time >= _shootingManager.NextShoot) _shootingManager.DoFire();
+                    }else{
+                         //if he hasn't got any more ammo, return to idle state for waiting.
+                         _seekBehaviour.Target = null; //stop chasing player
+                         _fleeBehaviour.Target = _Player;
+                         _nextState = Idle();
+                    }
+               }else{//if he is far
+                    //Seek for the player.
+                    _seekBehaviour.Target = _Player;
+                    _fleeBehaviour.Target = null; //It stops of fleeing from the player.
+               }
+
+               if (!_seekBehaviour.Target)
+               {
+                    _nextState = Idle();
+               }else{
+                    _steeringForce = _seekBehaviour.SteeringForce;
+               }
+
+               yield return null;
+          }
+     }
+
+     private IEnumerator Death()
+     {
+          Debug.Log($"ENTERED {nameof(Death)}");
+          _seekBehaviour.Target = null;
+          _fleeBehaviour.Target = null;
+
+          while (_nextState == null)
+          {
+               _steeringForce = Vector2.zero;
+               yield return null;
+          }
+     }
+
+     public void Die ()
+     {
+          _nextState = Death();
+     }
+
+     public override Vector2 SteeringForce
+     {
+          get => _steeringForce;
+     }
+
+     private void OnCollisionEnter2D(Collision2D other)
+     {
+          if (other.gameObject.GetComponent<Com_PlayerInput>()) //it's the player
+          {
+               _seekBehaviour.Target = other.transform;
+          }
+     }
+
+} 				
+	  </code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+</body>
+</html>

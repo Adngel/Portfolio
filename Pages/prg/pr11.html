@@ -1,0 +1,587 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 6</div>
+			<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_00.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 6</div>
+			<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_01.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 6</div>
+			<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_02.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 6</div>
+			<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_03.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 6</div>
+			<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_04.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">6 / 6</div>
+			<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_05.png" style="width:100%">
+		</div>
+
+		<!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_00.png" style="width:100%" onclick="currentSlideG(1)" alt="1/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_01.png" style="width:100%" onclick="currentSlideG(2)" alt="2/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_02.png" style="width:100%" onclick="currentSlideG(3)" alt="3/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_03.png" style="width:100%" onclick="currentSlideG(4)" alt="4/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_04.png" style="width:100%" onclick="currentSlideG(5)" alt="5/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_05.png" style="width:100%" onclick="currentSlideG(6)" alt="6/6">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>Space Run</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;This was a project we developed with Unity Engine during the weekend of the gamejam Brains Eden 2019, It is a short prototype where the player must escape from the space ship, jumping through different obstacles before the time  runs out.<br>
+          <br>The prototype were made by a team of five:<br>
+        </p>
+        <ul class="DescriptionList">
+          <li>An artist for the player character modelling and animations</li>
+          <li>An artist for the environment objects</li>
+          <li>A programmer for the special effects and level end conditions</li>
+          <li>A programmer for the menus and scenes management</li>
+          <li>And myself for the character setup, level design and art support</li>
+        </ul>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>Pl_Controller.cs</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Pl_Controller : MonoBehaviour
+{
+          //Reference
+          Animator anim;
+          CharacterController CC;
+          [SerializeField] HealthBar HB;
+
+          //Inputs
+          [Header("Inputs")]
+          [SerializeField] float h;
+          [SerializeField] float v;
+          [SerializeField] bool Action;
+          
+          
+          [Header("Sensors")]
+          [SerializeField] bool IsMoving;
+          [SerializeField] bool IsOnGround;
+          [SerializeField] bool IsJumping;
+          [SerializeField] bool IsFloating;
+          [SerializeField] bool IsDead;
+          [SerializeField] float TimeAfterDeath = 2.0f; //The seconds to add for the death animation.
+          [SerializeField] float WaitingTimeDeath;
+          [SerializeField] bool IsActivatingSomething;
+          bool ithasjustdie = false;
+
+          [Header ("Vars Movement")]
+          [SerializeField] Vector3 NewDirection;
+          [SerializeField] float MovSpeed = 4.0f;
+          [SerializeField] Vector3 DirTarget;
+          [SerializeField] float RotSpeed = 4.0f;
+          [SerializeField] float step;
+
+          [Header("Vars Gravity")]
+          [SerializeField] LayerMask GroundLayer;
+          [SerializeField] float GroundDistance = 0.1f;
+          [SerializeField] float GravityVariation = 0.2f;
+          [SerializeField] float GravityFalling;
+          [SerializeField] float GravityStrengh = 2.0f;
+          [SerializeField] float JumpVariation = 0.2f;
+          [SerializeField] float JumpHeightNormalized = 0.0f;
+          [SerializeField] float JumpPower = 3.0f;
+          [SerializeField] bool JumpRise = true;
+          [SerializeField] float TimeBetweenJumps = 0.5f;
+          [SerializeField] float TimeSinceLastJamp = -1.0f;
+          
+          public bool SwitchState;
+          
+          void Start ()
+          {
+               anim = GetComponent<Animator>();
+               CC = GetComponent<CharacterController>();
+               if (HB == null)
+               {
+                    print("ERROR, Health Bar has not been applied correctly on the player obj");
+               }
+          }
+          
+          void Update ()
+          {
+               /*
+               1º check up input
+               2º Future Translation
+               3º Future Rotation
+               4º Transform Update
+               5º Animations management
+               */
+
+               if (HB.HP <= 0)
+               {
+                    if (!ithasjustdie)
+                    {
+                         IsDead = true;
+                         WaitingTimeDeath = Time.time;
+                         ithasjustdie = true;
+                    }
+               }else {
+                    IsDead = false;
+               } 
+          
+               if (!IsDead)
+               {
+                    //1º check up input
+                    Action = Input.GetButtonDown("Jump");
+                    if (!Action)
+                    {
+                         h = Input.GetAxis("Horizontal");
+                         v = Input.GetAxis("Vertical");
+                    }else{
+                         h = 0;
+                         v = 0;
+                    }
+               }else{ //If it's actually dead
+                    h = 0.0f;
+                    v = 0.0f;
+                    Action = false;
+          
+                    if (Time.time >= (WaitingTimeDeath + TimeAfterDeath))
+                    {
+                         SceneManager.LoadScene("MMenu");
+                    }
+               }
+               Motion();
+               AnimationManager();
+          }
+          
+          void Motion()
+          {
+               NewDirection = Vector3.zero;
+               //2º Future Translation
+               if ((h > 0.1f)||(h < -0.1f)) //Just checking if any direction is pressed
+               {
+                    IsMoving = true;
+                    if (h >= 0)
+                    {
+                         NewDirection.x = (MovSpeed * Time.deltaTime);
+                         DirTarget = new Vector3(0, 0, 0);
+                    }else{
+                         NewDirection.x = (MovSpeed * Time.deltaTime * (-1));
+                         DirTarget = new Vector3(0, 180, 0);
+                    }
+               }else{
+                    IsMoving = false;
+               }
+          
+               if (Action)
+               {
+                    DirTarget = new Vector3(0, -90, 0);
+               }
+
+               //2b, jumping and gravity.
+               CheckGravity(); //This changes the NewDirection.y projection and .y
+          
+               // 3º Future Rotation
+               if (Vector3.Angle(transform.forward, DirTarget) > 5) step = 0.0f;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(DirTarget), step + (RotSpeed           * Time.deltaTime));
+          
+               //4º Transform Update
+               CC.Move(NewDirection);
+          }
+          
+          void CheckGravity()
+          {
+               //1st, check if it's on the ground or if it has move to a place where there is not floor.
+               RaycastHit MyHit;
+               if (Physics.Raycast(transform.position + (Vector3.up * (GroundDistance / 2)), -Vector3.up, out MyHit, GroundDistance, GroundLayer))
+               {
+                    //If it's on the ground, get the floor normal and make the Direction Move, paralel to the floor.
+                    IsOnGround = true;
+                    NewDirection = Vector3.ProjectOnPlane(NewDirection, MyHit.normal);
+               }else{
+                    IsOnGround = false;
+                    NewDirection = Vector3.ProjectOnPlane(NewDirection, Vector3.up);
+               }
+          
+               float IdealY = 0.0f;
+          
+               if (!IsFloating)//Do the normal gravity physics
+               {
+                    if (IsJumping)//It in jumping state
+                    {
+                         GravityFalling = 0;
+                         if (JumpRise)//The jump is growing
+                         {
+                              JumpHeightNormalized += JumpVariation * Time.deltaTime; //Lineal jump at the moment, to change into parabolical, this function should change.
+          ​                    if (JumpHeightNormalized >= 1.0f) //Max point of the jump
+                              {
+                                   JumpRise = false; //start going down
+                              }
+                         }else{//The jump is decreasing
+                              JumpHeightNormalized -= JumpVariation * Time.deltaTime;//Lineal fall, I think this is ok.
+                              if (JumpHeightNormalized <= 0.0f)
+                              {
+                                   IsJumping = false;
+                              }
+                         }
+          
+                         if ((IsOnGround) && (!JumpRise)) //If it has landed
+                         {
+                              IsJumping = false;
+                         }//the normal is that this state won't be OnGround, so no more additions are needed in that aspect.
+          
+                         IdealY = JumpPower * JumpHeightNormalized;
+                    }else{//Is not jumping
+          
+                    if (!IsOnGround)//It's falling
+                    {
+                         if (GravityFalling < 1) GravityFalling += GravityVariation * Time.deltaTime; 
+                         {
+          ​                    IdealY = GravityFalling * GravityStrengh * (-1);
+                         }else{ //It's on ground
+                              GravityFalling = 0.0f;
+                              JumpHeightNormalized = 0.0f;
+          
+                              //Because he is in the floor, he can jump.
+                              if ((v > 0.01f) && (Time.time >= TimeSinceLastJamp))
+                              {
+                                   IsJumping = true;
+                                   JumpRise = true;
+                                   TimeSinceLastJamp = Time.time;
+                              }
+          
+                              IdealY = 0.0f;
+                         }
+                    }
+               }else{//Flying physics
+          
+                    if (v > 0.1f)
+                    {
+                         IdealY = MovSpeed * Time.deltaTime;
+                    }else if (v < -0.1f) {
+                         IdealY = -MovSpeed * Time.deltaTime;
+                    }
+               }
+          
+               NewDirection = NewDirection + (Vector3.up * IdealY);
+          }
+          
+          void AnimationManager ()
+          {
+               //5º Animations management
+               anim.SetBool("isMoving", IsMoving);
+               anim.SetBool("isJumping", IsJumping);
+               anim.SetBool("isFloating", IsFloating);
+               anim.SetBool("isDead", IsDead);
+               if (IsActivatingSomething)
+               {
+                    anim.SetBool("isAction", Action);
+               }
+          }
+}
+				
+			</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Modal Image Block -->
+	<div class="DescriptionContainer">
+		<h2>Player Animator Controller</h2>
+	</div>
+	<div class="modalContainer">
+		<!-- Trigger the Modal -->
+		<img id="myModalImg" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_animator.jpg" alt="">
+	
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+	  		<span class="modalClose">&times;</span>
+  			<img class="modal-content" id="img01">
+	  		<div id="modalCaption"></div>
+		</div>
+	</div>
+				
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+	<!-- Art Gallery Block -->
+	<div class="DescriptionContainer">
+		<h2>Art Support</h2>
+	</div>
+	
+	<div class= "LGContainer">
+		<div class="LGrow">
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art1.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art2.jpg" style="width:100%" onclick="openModal();currentSlide(2)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art3.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art4.jpg" style="width:100%" onclick="openModal();currentSlide(4)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art5.jpg" style="width:100%" onclick="openModal();currentSlide(5)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art6.jpg" style="width:100%" onclick="openModal();currentSlide(6)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art7.jpg" style="width:100%" onclick="openModal();currentSlide(7)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art8.jpg" style="width:100%" onclick="openModal();currentSlide(8)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art9.jpg" style="width:100%" onclick="openModal();currentSlide(9)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design1.jpg" style="width:100%" onclick="openModal();currentSlide(10)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design2.jpg" style="width:100%" onclick="openModal();currentSlide(11)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design3.jpg" style="width:100%" onclick="openModal();currentSlide(12)" class="LGhover-shadow LGcursor">
+			</div>
+		</div>
+
+		<div id="myLGModal" class="LGmodal">
+			<span class="LGclose LGcursor" onclick="closeModal()">&times;</span>
+			<div class="LGmodal-content">
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">1 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art1.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">2 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art2.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">3 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art3.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">4 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art4.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">5 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art5.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">6 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art6.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">7 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art7.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">8 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art8.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">9 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art9.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">10 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design1.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">11 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design2.jpg" style="width:100%">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">12 / 12</div>
+					<img src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design3.jpg" style="width:100%">
+				</div>
+
+				<a class="LGprev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="LGnext" onclick="plusSlides(1)">&#10095;</a>
+
+				<div class="LGcaption-container">
+					<p id="LGcaption"></p>
+				</div>
+
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art1.jpg" style="width:100%" onclick="currentSlide(1)" alt="1 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art2.jpg" style="width:100%" onclick="currentSlide(2)" alt="2 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art3.jpg" style="width:100%" onclick="currentSlide(3)" alt="3 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art4.jpg" style="width:100%" onclick="currentSlide(4)" alt="4 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art5.jpg" style="width:100%" onclick="currentSlide(5)" alt="5 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art6.jpg" style="width:100%" onclick="currentSlide(6)" alt="6 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art7.jpg" style="width:100%" onclick="currentSlide(7)" alt="7 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art8.jpg" style="width:100%" onclick="currentSlide(8)" alt="8 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_art9.jpg" style="width:100%" onclick="currentSlide(9)" alt="9 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design1.jpg" style="width:100%" onclick="currentSlide(10)" alt="10 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design2.jpg" style="width:100%" onclick="currentSlide(11)" alt="11 /12">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/11_BR19_Unity_WC/11_design3.jpg" style="width:100%" onclick="currentSlide(12)" alt="12 /12">
+				</div>
+			</div>
+		</div>
+	</div>
+			
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html"> Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+	<script src="../../Resources/Codes/ModalImg.js"></script>
+	<script src="../../Resources/Codes/Lightbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 5</div>
+			<img src="../../Resources/Prog_img/02_SFML_AR/02_0.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 5</div>
+			<img src="../../Resources/Prog_img/02_SFML_AR/02_1.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 5</div>
+			<img src="../../Resources/Prog_img/02_SFML_AR/02_4.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 5</div>
+			<img src="../../Resources/Prog_img/02_SFML_AR/02_2.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 5</div>
+			<img src="../../Resources/Prog_img/02_SFML_AR/02_3.jpg" style="width:100%">
+		</div>
+
+
+	  <!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/02_SFML_AR/02_0.png" style="width:100%" onclick="currentSlideG(1)" alt="1/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/02_SFML_AR/02_1.jpg" style="width:100%" onclick="currentSlideG(2)" alt="2/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/02_SFML_AR/02_4.jpg" style="width:100%" onclick="currentSlideG(3)" alt="3/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/02_SFML_AR/02_2.jpg" style="width:100%" onclick="currentSlideG(4)" alt="4/5">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/02_SFML_AR/02_3.jpg" style="width:100%" onclick="currentSlideG(5)" alt="5/5">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>Races of the Apogee</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;This game is a 2d top view scroller, there, the players can control a small spaceship and must complete the circuit as fast as they can. It can be played in sigle player or 2 players with a split screen.</br></br>&nbsp; &nbsp; &nbsp;This project was an introduction into the game development, using the library SFML to manage the graphic coding, I could focus in the basic elements:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+        </p>
+        <ul class="DescriptionList">
+			<li>The game loop management.</li>
+			<li>Player controls and objects movements.</li>
+			<li>AABB Collisions management. (For walls and pickups).</li>
+			<li>Level generation (the race track map is randomly generated but with the same lenght).&nbsp; &nbsp; &nbsp;</li>
+			<li>Management of external files to save the Records data.&nbsp;</li>
+        </ul>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>Game.cpp</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+#include "AudioManager.h"
+#include "CurrentData.h"
+#include "Game.h"
+#include "GsMenu.h"
+#include "GsPlay.h"
+#include "GsResult.h"
+#include "TimeManager.h"
+
+Game* Game::instance = 0; //Initialization.
+
+Game::Game()
+{
+	std::cout << "Game Ctor" << std::endl;
+}
+
+Game::~Game()
+{
+	std::cout << "Game Dtor" << std::endl;
+}
+
+Game * Game::Instance() //Singleton call function.
+{
+	if (instance == 0)
+	{
+		instance = new Game();
+	}
+
+	return instance;
+}
+
+void Game::Start()
+{
+	//It starts opening the ini file to load data, and then it uses it to create the window. It also initializes the timer.
+	CurrentData::Instance()->LoadIni();
+
+	window.create(sf::VideoMode(CurrentData::Instance()->getScreenSize().x, CurrentData::Instance()->getScreenSize().y), CurrentData::Instance()->getTitle());
+
+	AudioManager::Instance()->Initialize(); //Loading the sounds take a bit, so I'm going to do it here first. So they will be loaded during the game.
+	TimeManager::Instance()->Initialize();
+
+	AddGState(new GsMenu(nullptr));
+}
+
+void Game::Update()
+{
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero; // Resets the time
+
+	while (!states.empty())
+	{
+		if (TimeManager::Instance()->UpdateClock())//Only draw the cycles that are "accepted" by the fps limit, after all, it looks like that it manages to draw just its 60 calls per second as it was intended.
+		{
+			//std::cout << std::setprecision(6) << TimeManager::Instance()->DeltaTime() << std::endl;
+			ButtonX(); //Check if the X button of the top right corner is pressed or not.
+
+			if (states.front()->IsActive())
+			{
+				states.front()->Update();
+				states.front()->Draw();
+			}
+
+			if (!states.front()->IsAlive())
+			{
+				RemoveState();
+			}
+		}	
+	}//End of loop
+
+
+}
+
+void Game::OnExit()
+{
+	Game::Instance()->Window().close();
+}
+
+void Game::AddGState(GsClass * newGs)
+{
+	states.push_front(newGs);
+	states.front()->Start();
+	if (states.front()->GetPrevSt() != nullptr)
+	{
+		states.front()->GetPrevSt()->IsActive() = false; //If there is a previous state, set its Active false, so there won't be collapse with the input actions.
+	}
+}
+
+void Game::ChangeGState(GsClass * newGs)
+{
+	states.push_back(newGs);
+}
+
+void Game::RemoveState() //To erase the active state.
+{
+	states.front()->OnExit();
+	delete states.front(); //Erase the state from the memory.
+	states.pop_front(); //Erase pointer fromt the states deque.
+	if (states.size() > 0)	states.front()->Start();
+}
+
+
+void Game::ButtonX()
+{
+	//In General, the choices are: 0 Single Player, 1 Two Players, 2 Options, 3 Recrods, 4 Exit.
+	sf::Event event; // ENABLE CLOSING WINDOW
+	while (Game::Instance()->Window().pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed: //The X button of the window top-right corner.
+				for (auto it = states.begin(); it != states.end(); it++)
+				{
+					(*it)->IsActive() = false;
+					(*it)->IsAlive() = false;
+				}
+				//This will end all the active states, the closure may delay a bit more, but I feel is more memory safe ensure that it goes calling
+				//all the required destructors, instead of just quit crashing everyting.
+				break;
+		}
+	}
+}
+				
+			</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+	<script src="../../Resources/Codes/ModalImg.js"></script>
+	<script src="../../Resources/Codes/Lightbox.js"></script>
+</body>
+</html>

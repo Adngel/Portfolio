@@ -1,0 +1,464 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 6</div>
+			<img src="../../Resources/Prog_img/07_Network_Chat/07_0.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 6</div>
+			<img src="../../Resources/Prog_img/07_Network_Chat/07_1.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 6</div>
+			<img src="../../Resources/Prog_img/07_Network_Chat/07_2.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 6</div>
+			<img src="../../Resources/Prog_img/07_Network_Chat/07_3.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 6</div>
+			<img src="../../Resources/Prog_img/07_Network_Chat/07_4.jpg" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">6 / 6</div>
+			<img src="../../Resources/Prog_img/07_Network_Chat/07_5.jpg" style="width:100%">
+		</div>
+
+		<!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/07_Network_Chat/07_0.jpg" style="width:100%" onclick="currentSlideG(1)" alt="1/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/07_Network_Chat/07_1.jpg" style="width:100%" onclick="currentSlideG(2)" alt="2/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/07_Network_Chat/07_2.jpg" style="width:100%" onclick="currentSlideG(3)" alt="3/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/07_Network_Chat/07_3.jpg" style="width:100%" onclick="currentSlideG(4)" alt="4/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/07_Network_Chat/07_4.jpg" style="width:100%" onclick="currentSlideG(5)" alt="5/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/07_Network_Chat/07_5.jpg" style="width:100%" onclick="currentSlideG(6)" alt="6/6">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>Network Chat</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;This is a system application I developed as an introduction to the network programming. It consists in two executables:&nbsp;<br>
+        </p>
+        <ul class="DescriptionList">
+          <li>Server: It creates the chat room and manage its visitors.</li>
+          <li>Client: It allows to enter in the chat room as a new user.</li>
+        </ul>
+		<p class="DescriptionText">When the client activates, it must choose its Usear name and the IP of the computer where the server is being launched. Then If the room is opened, it will connect, otherwise, it will do 3 attempts before to ask for a new I.P. adress.<br>
+          <br>Once connected, it can send messages that will receive the server, and will resend to all the users connected in the chat room.<br>
+          <br>The server also has the functionality to eject any of the connected clients.
+        </p>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>TCPConnection.cpp (Client)</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+
+#include &#x3C;iostream>
+#include &#x3C;SDL.h>
+#include "TCPConnection.h"
+#include &#x3C;windows.h> //WinApi header
+
+TCPConnection server;
+
+bool ApplicationActive = true;
+enum states { STARTMENU = 1, CHATROOM, ENDINGAPP};
+states State = STARTMENU;
+HANDLE hConsole;
+String inputMsg;
+String receivedMsg;
+String MyName = "NotDefined";
+
+void PrintLn()
+{
+     std::cout &#x3C;&#x3C; "------------------------------" &#x3C;&#x3C; std::endl;
+}
+
+void PrintHelp()
+{
+     SetConsoleTextAttribute(hConsole, 6);
+     PrintLn();
+     std::cout &#x3C;&#x3C; "Write /help to print these instructions." &#x3C;&#x3C; std::endl;
+     std::cout &#x3C;&#x3C; "Write /ip to show the ip information of the current PC." &#x3C;&#x3C; std::endl;
+     std::cout &#x3C;&#x3C; "Write /exit to close the chat program." &#x3C;&#x3C; std::endl;
+     PrintLn();
+     SetConsoleTextAttribute(hConsole, 15);
+}
+
+//Just to show a list with colors, it's deactivated in the final build.
+void ColorTest()
+{
+     for (int k = 1; k &#x3C; 255; k++)
+     {
+          SetConsoleTextAttribute(hConsole, k);
+          std::cout &#x3C;&#x3C; k &#x3C;&#x3C; " I want to be nice today!" &#x3C;&#x3C; std::endl;
+     }
+     SetConsoleTextAttribute(hConsole, 15);
+     system("pause");
+}
+
+void ReceiveMsgThread() //Thread 2
+{
+     std::cout &#x3C;&#x3C; "Message thread Initializated." &#x3C;&#x3C; std::endl;
+     while (State == CHATROOM)
+     {
+          if (server.Receive(receivedMsg))
+          {
+               if (!(receivedMsg == "/requestname"))
+               {
+                    std::cout &#x3C;&#x3C; receivedMsg &#x3C;&#x3C; std::endl;
+               }else{
+                    server.Send(MyName);
+               }
+          }else {
+               if (State == ENDINGAPP)
+               {
+                    std::cout &#x3C;&#x3C; "Secondary thread closed." &#x3C;&#x3C; std::endl;
+               }else {
+                    //std::cout &#x3C;&#x3C; "Error receiving message from server." &#x3C;&#x3C; std::endl;
+                    State = ENDINGAPP;
+               }
+          }
+     }
+     //std::cout &#x3C;&#x3C; "Closing the Message thread." &#x3C;&#x3C; std::endl;
+}
+
+//Here are all the operations related to the closure of the App, it's on a separated function because if it were in the Main function, it wouldn't execute if the application is closed
+//(for example, pressing the X button of the Windows's context), placed here and with the ConsoleHandler, this code is executed when the closure event is called or when the Main function finishes.
+
+void ClosureState()
+{
+     //Sends a message to the server to let it know that this client is leaving.
+     inputMsg = "/userout";
+     server.Send(inputMsg);
+
+     //Closes server socket interrupting the connection with it in the process
+     server.CloseSocket();
+
+     //Receives message sends a disrruption error and the loop in the secondary thread ends.
+     if (server.m_CheckNewMessagesThread.joinable())
+     {
+          server.m_CheckNewMessagesThread.join();
+     }
+
+     //Draw new screen
+     SetConsoleTextAttribute(hConsole, 11);
+     std::cout &#x3C;&#x3C; "Please wait..." &#x3C;&#x3C; std::endl;
+     SDL_Delay(2000);
+     std::system("cls");
+
+     std::cout &#x3C;&#x3C; "***Chat CLIENT***" &#x3C;&#x3C; std::endl;
+     std::cout &#x3C;&#x3C; "Closing chat application, client out." &#x3C;&#x3C; std::endl;
+     SetConsoleTextAttribute(hConsole, 15);
+
+
+     //End Application
+     ApplicationActive = false;
+
+     //Close SDL system
+     server.ShutDown();
+     SDL_Quit();
+
+     system("pause");
+}
+
+bool WINAPI ConsoleHandler(DWORD CEvent) //This is to activate the closure state (which closes the server socket and its listening thread) if the X button of the Windows context is pressed.
+{
+     if (CEvent == CTRL_CLOSE_EVENT)
+     {
+          std::cout &#x3C;&#x3C; "Closing event detected!" &#x3C;&#x3C; std::endl;
+          State = ENDINGAPP;
+
+          ClosureState();
+     }
+     return TRUE;
+}
+
+int main(int argc, char* argv[])
+{
+     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+     int attemps = 3;
+     String IPIndicated = "127.0.0.1";
+
+
+     //Initialize the main SDL system
+     if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+     {
+          std::cout &#x3C;&#x3C; "Error initializing SDL." &#x3C;&#x3C; std::endl;
+          //system("pause");
+          return false;
+     }
+
+     server.Initialize();
+
+     SetConsoleTextAttribute(hConsole, 11);
+     std::cout &#x3C;&#x3C; "**Chat CLIENT**" &#x3C;&#x3C; std::endl;
+     SetConsoleTextAttribute(hConsole, 15);
+     std::cout &#x3C;&#x3C; "Welcome, please write the name that you want to use in the chat: " &#x3C;&#x3C; std::endl &#x3C;&#x3C; " >";
+     std::cin >> MyName;
+     std::cout &#x3C;&#x3C; "Please " &#x3C;&#x3C; MyName &#x3C;&#x3C; ", type the IP that you want to connect, for example: ";
+     SetConsoleTextAttribute(hConsole, 12);
+     std::cout &#x3C;&#x3C; "10.18.27.50" &#x3C;&#x3C; std::endl;
+     SetConsoleTextAttribute(hConsole, 15);
+
+     if (SetConsoleCtrlHandler((PHANDLER_ROUTINE)ConsoleHandler, TRUE) == FALSE)
+     {
+          std::cout &#x3C;&#x3C; "The handler is not going to work." &#x3C;&#x3C; std::endl;
+     }
+
+     //MAIN LOOP
+     while (ApplicationActive)
+     {
+          switch (State)
+          {
+               case STARTMENU: //Search Server
+               std::cout << " >";
+               std::cin >> IPIndicated;
+               while (attemps > 0)
+               {
+                    if (server.SearchServer(IPIndicated))
+                    {
+                         attemps = 0;
+                         State = CHATROOM;
+
+                         PrintLn();
+                         SetConsoleTextAttribute(hConsole, 11);
+                         std::cout &#x3C;&#x3C; "--/ Chat Room Opened /--" &#x3C;&#x3C; std::endl;
+                         SetConsoleTextAttribute(hConsole, 15);
+                         PrintHelp();
+                         PrintLn();
+
+                         server.m_CheckNewMessagesThread = std::thread(ReceiveMsgThread); //Initializes a secondary Thread to receaves messages
+
+                    }else {
+                         attemps--;
+                    }
+               }
+               if ((attemps == 0) && (State == STARTMENU))
+               {
+                    std::system("cls");
+                    SetConsoleTextAttribute(hConsole, 11);
+                    std::cout &#x3C;&#x3C; "**Chat CLIENT**" &#x3C;&#x3C; std::endl;
+                    SetConsoleTextAttribute(hConsole, 15);
+                    std::cout &#x3C;&#x3C; "Time exceded, it was not possible to connect on the IP: " &#x3C;&#x3C; IPIndicated &#x3C;&#x3C; ", please, type it again:" &#x3C;&#x3C; std::endl;
+                    std::cout &#x3C;&#x3C; "IP address should be written like: ";
+                    SetConsoleTextAttribute(hConsole, 12);
+                    std::cout &#x3C;&#x3C; "127.0.0.1" &#x3C;&#x3C; std::endl;
+                    SetConsoleTextAttribute(hConsole, 15); 
+
+                    attemps = 3;
+               }
+               break; 
+
+            case 2: //Chat Room
+               std::cin >> inputMsg;
+
+               if (inputMsg == "/help")
+               {
+                    PrintHelp();
+               }
+               else if (inputMsg == "/exit")
+               {
+                    State = ENDINGAPP;
+                    //std::cout &#x3C;&#x3C; "EXITING" &#x3C;&#x3C; ", state is " &#x3C;&#x3C; State &#x3C;&#x3C; std::endl;
+                    std::cout &#x3C;&#x3C; "Abandoning Chat Room:" &#x3C;&#x3C; std::endl;
+               }
+               else if (inputMsg == "/ip")
+               {
+                    PrintLn();
+                    system("C:\\Windows\\System32\\ipconfig");
+                    PrintLn();
+               }else {
+                    //Send it to the server.
+                    server.Send(inputMsg);
+               }
+               break;
+
+          case 3: //Close App
+
+               ClosureState();
+               break;
+
+          default:
+               std::cout &#x3C;&#x3C; "Fatal Error, code has been lead out of defined states" &#x3C;&#x3C; std::endl;
+               system("pause");
+               break;
+          }
+     }
+     return 0;
+}
+
+			
+		</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+	<!-- Art Gallery Block -->
+	<div class="DescriptionContainer">
+		<h2>Extra gallery&nbsp;</h2>
+	</div>
+	
+	<div class= "LGContainer">
+		<div class="LGrow">
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/07_Network_Chat/07_6.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/07_Network_Chat/07_7.jpg" style="width:100%" onclick="openModal();currentSlide(2)" class="LGhover-shadow LGcursor">
+			</div>
+			<div class="LGcolumn">
+				<img src="../../Resources/Prog_img/07_Network_Chat/07_8.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="LGhover-shadow LGcursor">
+			</div>
+		</div>
+
+		<div id="myLGModal" class="LGmodal">
+			<span class="LGclose LGcursor" onclick="closeModal()">&times;</span>
+			<div class="LGmodal-content">
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">1 / 1</div>
+					<img src="../../Resources/Prog_img/07_Network_Chat/07_6.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">2 / 2</div>
+					<img src="../../Resources/Prog_img/07_Network_Chat/07_7.jpg" class= "centerIMG">
+				</div>
+
+				<div class="LGmySlides">
+					<div class="LGnumbertext">3 / 3</div>
+					<img src="../../Resources/Prog_img/07_Network_Chat/07_8.jpg" class= "centerIMG">
+				</div>
+				<a class="LGprev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="LGnext" onclick="plusSlides(1)">&#10095;</a>
+
+				<div class="LGcaption-container">
+					<p id="LGcaption"></p>
+				</div>
+
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/07_Network_Chat/07_6.jpg" style="width:100%" onclick="currentSlide(1)" alt="1 /3">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/07_Network_Chat/07_7.jpg" style="width:100%" onclick="currentSlide(2)" alt="2 /3">
+				</div>
+				<div class="LGcolumn">
+					<img class="LGdemo LGcursor" src="../../Resources/Prog_img/07_Network_Chat/07_8.jpg" style="width:100%" onclick="currentSlide(3)" alt="3 /3">
+				</div>
+			</div>
+		</div>
+	</div>
+			
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+				
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+	<script src="../../Resources/Codes/Lightbox.js"></script>
+</body>
+</html>

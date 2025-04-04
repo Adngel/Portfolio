@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Antonio Lopez Works</title>
+<link rel="stylesheet" href="../../General_Style.css">
+</head>
+
+<body onload="Start()">
+	
+	<!-- Page Header -->
+	<div>
+		<img src="../../Resources/Admin_img/logo.png" width="512" height="124" alt="Logo" align="middle" />
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Container for the image gallery -->
+	<div class="GalleryContainer">
+
+		<!-- Full-width images with number text -->
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">1 / 6</div>
+			<img src="../../Resources/Prog_img/04_Unity_EOTW/04_0.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">2 / 6</div>
+			<img src="../../Resources/Prog_img/04_Unity_EOTW/04_1.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">3 / 6</div>
+			<img src="../../Resources/Prog_img/04_Unity_EOTW/04_2.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">4 / 6</div>
+			<img src="../../Resources/Prog_img/04_Unity_EOTW/04_3.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">5 / 6</div>
+			<img src="../../Resources/Prog_img/04_Unity_EOTW/04_4.png" style="width:100%">
+		</div>
+
+		<div class="GallerySlide">
+			<div class="GalleryPrevNumberText">6 / 6</div>
+			<img src="../../Resources/Prog_img/04_Unity_EOTW/04_5.png" style="width:100%">
+		</div>
+
+		<!-- Next and previous buttons -->
+		<a class="GalleryPrev" onclick="plusSlidesG(-1)">&#10094;</a>
+		<a class="GalleryNext" onclick="plusSlidesG(1)">&#10095;</a>
+		
+		<!-- Image text -->
+		<div class="GalleryCaption-container">
+			<p id="GalleryCaption"></p>
+		</div>
+
+		<!-- Thumbnail images -->
+		<div class="GalleryRow">
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/04_Unity_EOTW/04_0.png" style="width:100%" onclick="currentSlideG(1)" alt="1/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/04_Unity_EOTW/04_1.png" style="width:100%" onclick="currentSlideG(2)" alt="2/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/04_Unity_EOTW/04_2.png" style="width:100%" onclick="currentSlideG(3)" alt="3/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/04_Unity_EOTW/04_3.png" style="width:100%" onclick="currentSlideG(4)" alt="4/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/04_Unity_EOTW/04_4.png" style="width:100%" onclick="currentSlideG(5)" alt="5/6">
+			</div>
+			<div class="GalleryColumn">
+				<img class="GalleryDemo GalleryCursor" src="../../Resources/Prog_img/04_Unity_EOTW/04_5.png" style="width:100%" onclick="currentSlideG(6)" alt="6/6">
+			</div>
+		</div>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+	
+	<!-- Description Block -->
+	<div class="DescriptionContainer">
+        <h1>The End of the World</h1>
+        <p class="DescriptionText">&nbsp; &nbsp; &nbsp;A short FPS game developed in Unity that was designed to test a custom hardward controller, powered with an ARDUINO microchip and a rotational sensor. Therefore, the game included three mini-games to practice different movements with such controller.<br>
+        </p>
+        <ul class="DescriptionList">
+          <li>Laberinth puzzle, the player had to rotate the controller to move the maze, and guide the ball which acted by gravity, till the green spot.</li>
+          <li>Hanoi towers, the player had to take the disks from the left stick, onto the bright one on the right, puting a test in the traslation mechanism of the controller.</li>
+          <li>Figures shapes, the player had to press the buttons to change the figure, and make it fit in the shadow, turning and moving the controller.</li>
+          <li>Once the three tasks were completed, the player just had to go at the open room to press a red button.</li>
+        </ul>
+      </div>
+	<!-- .................... -->
+	
+	<!-- Code Block -->
+	<div class="DescriptionContainer">
+		<h2>Example Code</h2>
+		<p>
+			<br/>
+			<strong>InputManager.cs</strong>
+			<br/>
+		</p>
+	</div>
+	<div class="codeContainer">
+		<code>
+using UnityEngine;
+
+public class InputManager : MonoBehaviour
+{
+     public float h;
+     public float v;
+     public float rx;
+     public float ry;
+     public float rz;
+     public bool LightDetector = false;
+     public int LightSensitivity = 500;
+     public bool ButtonA = false;
+     public bool ButtonB = false;
+     public bool ButtonC = false;
+     public float temp = 0;
+
+     private int CharacterForNextTag;
+     private string CurrentStringValue;
+     private string RestofTheString;
+
+     private int InputHardware = 0;
+     //0 - keyboard and mouse
+     //1 - torch controller
+
+     private void Update()
+     {
+          if (InputHardware == 0)
+          {
+               h = Input.GetAxis("Mouse X");
+               v = Input.GetAxis("Mouse Y");
+               LightDetector = Input.GetButton("Jump");
+               ButtonA = Input.GetButton("Fire1");
+               ButtonB = Input.GetButton("Trigger");
+               ButtonC = Input.GetButton("escape");
+          }
+     }
+
+     // Invoked when a line of data is received from the serial device.
+     void OnMessageArrived(string msg)
+     {
+          int LDv = 0;
+          int BAv = 0;
+          int BBv = 0;
+          int BCv = 0;
+          float X = 0;
+          float Y = 0;
+          float Z = 0;
+          float GX = 0;
+          float GY = 0;
+          float GZ = 0;
+
+          //Debug.Log("Arrived: " + msg);
+          //msg = "LD_" + String(analogRead(A0)) + "BtA_" + String(analogRead(A1)) + "BtB_" + String(analogRead(A2)) + "BtC_" + String(analogRead(A3));
+
+          RestofTheString = msg.Substring(3, msg.Length - 3); //Removes the LD_
+          CharacterForNextTag = msg.IndexOf("BtA_") - 3; //Get when the next tag comes (the lenght of the input var uses to change from 1 to 3 digits)
+          CurrentStringValue = RestofTheString.Substring(0, CharacterForNextTag); //Extract the actual input on a separate string
+          LDv = int.Parse(CurrentStringValue); //Convert the separated string (with the actual input) into a useable integer.
+          //Debug.Log("LDv: " + LDv);
+
+          RestofTheString = RestofTheString.Substring(CurrentStringValue.Length + 4, RestofTheString.Length - (CurrentStringValue.Length + 4)); //Removes the LD input and the "BtA_" tag
+          CharacterForNextTag = RestofTheString.IndexOf("BtB_"); //Get when the next tag comes (the lenght of the input var uses to change from 1 to 3 digits)
+          CurrentStringValue = RestofTheString.Substring(0, CharacterForNextTag);
+BAv = int.Parse(CurrentStringValue); //Convert the separated string (with the actual input) into a useable integer.
+
+          RestofTheString = RestofTheString.Substring(CurrentStringValue.Length + 4, RestofTheString.Length - (CurrentStringValue.Length + 4)); //Removes the ButtonA input and the "BtB_" tag
+          CharacterForNextTag = RestofTheString.IndexOf("BtC_"); //Get when the next tag comes (the lenght of the input var uses to change from 1 to 3 digits)
+          CurrentStringValue = RestofTheString.Substring(0, CharacterForNextTag);
+BBv = int.Parse(CurrentStringValue); //Convert the separated string (with the actual input) into a useable integer.
+
+
+          RestofTheString = RestofTheString.Substring(CurrentStringValue.Length + 4, RestofTheString.Length - (CurrentStringValue.Length + 4)); //Removes the ButtonB input and the "BtC_" tag
+          BCv = int.Parse(RestofTheString); //Convert the separated string (with the actual input) into a useable integer.
+
+
+          LightDetector = (LDv < LightSensitivity) ? true : false;
+          ButtonA = (BAv > 100) ? true : false;
+          ButtonB = (BBv > 100) ? true : false;
+          ButtonC = (BCv > 100) ? true : false;
+     }
+
+     // Invoked when a connect/disconnect event occurs. The parameter 'success'
+     // will be 'true' upon connection, and 'false' upon disconnection or
+     // failure to connect.
+     void OnConnectionEvent(bool success)
+     {
+          Debug.Log(success ? "Device connected" : "Device disconnected");
+          if (success) InputHardware = 1;
+     }
+} 
+				
+			</code>
+	</div>
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	<!-- .................... -->
+		
+<!-- Page Footer -->
+	<div> 
+		<br/>
+		<br/>
+		<br/>
+	</div>
+	
+	<div class="clearfix">
+	  <div class="box">
+		<a class="active" href="/index.html">Programming</a>
+	  </div>
+	  <div class="box">
+		<a href="/Art_index.html">Art and Design</a>
+	  </div>
+	  <div class="box">
+		<a href="/About_index.html">About Me</a>
+	  </div>
+	</div>
+	<!-- .................... -->
+
+	<script src="../../Resources/Codes/Slideshow.js"></script>
+</body>
+</html>
